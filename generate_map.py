@@ -6,7 +6,7 @@ DATA_DIR = "data"
 OUTPUT_FILE = "manifest.json"
 
 def generate_manifest():
-    # Structure: { Category: { Notebook: [ {name: "Item1.html", type: "html"} ] } }
+    # Structure: { Category: { Notebook: [ {name: "Item1.html", type: "Item1"} ] } }
     manifest = {}
 
     if not os.path.exists(DATA_DIR):
@@ -29,10 +29,12 @@ def generate_manifest():
                     for item in os.listdir(nb_path):
                         if item.startswith('.'): continue # Skip hidden files
                         
-                        # storing the filename as the type as requested
+                        # Get filename without extension
+                        item_type = os.path.splitext(item)[0]
+                        
                         manifest[category][notebook].append({
                             "name": item,
-                            "type": item
+                            "type": item_type
                         })
 
     with open(OUTPUT_FILE, 'w') as f:
