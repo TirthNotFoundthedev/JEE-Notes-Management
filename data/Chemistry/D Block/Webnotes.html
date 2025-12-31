@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Ultimate Notes: d- and f-Block</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Poppins:wght@300;400;600;800&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #4ade80, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            border-left: 4px solid #3b82f6;
+        }
+
+        .reaction-arrow {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2px;
+            background: #64748b;
+            margin: 0 10px;
+        }
+        
+        .reaction-arrow::after {
+            content: '>';
+            position: absolute;
+            right: -5px;
+            top: -10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        
+        table th {
+            font-weight: 600;
+            color: #94a3b8;
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+        }
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #1e293b;
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+            THE <span class="gradient-text">d & f BLOCK</span>
+        </h1>
+        <p class="text-xl text-gray-400">JEE Mains & Advanced High-Yield Notes</p>
+        <div class="mt-4 inline-block px-4 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-sm font-bold border border-yellow-500/20">
+            <i class="fas fa-bolt mr-2"></i> Based on NCERT & JEE Trends
+        </div>
+    </header>
+
+    <!-- Navigation Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+        <a href="#intro" class="card p-4 rounded-xl text-center cursor-pointer hover:bg-white/5">
+            <i class="fas fa-atom text-2xl text-blue-400 mb-2"></i>
+            <div class="font-bold">Configs</div>
+        </a>
+        <a href="#trends" class="card p-4 rounded-xl text-center cursor-pointer hover:bg-white/5">
+            <i class="fas fa-chart-line text-2xl text-green-400 mb-2"></i>
+            <div class="font-bold">Trends & Tables</div>
+        </a>
+        <a href="#compounds" class="card p-4 rounded-xl text-center cursor-pointer hover:bg-white/5">
+            <i class="fas fa-flask text-2xl text-purple-400 mb-2"></i>
+            <div class="font-bold">KMnO₄ & K₂Cr₂O₇</div>
+        </a>
+        <a href="#fblock" class="card p-4 rounded-xl text-center cursor-pointer hover:bg-white/5">
+            <i class="fas fa-layer-group text-2xl text-pink-400 mb-2"></i>
+            <div class="font-bold">f-Block</div>
+        </a>
+    </div>
+
+    <!-- Section 1: Intro & Config -->
+    <section id="intro" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="text-blue-500 mr-3">01.</span> Electronic Configuration
+        </h2>
+        
+        <div class="card p-6 rounded-2xl mb-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-gray-200 mb-2">General Formula</h3>
+                    <div class="bg-black/40 p-4 rounded-lg border border-gray-700 mono text-xl text-center text-green-400">
+                        (n-1)d<sup>1-10</sup> ns<sup>1-2</sup>
+                    </div>
+                    <p class="mt-4 text-gray-400 text-sm">
+                        <span class="text-red-400 font-bold">TRAP ALERT:</span> Pd (Palladium) is <span class="mono text-white">4d<sup>10</sup> 5s<sup>0</sup></span>. 
+                        Transition elements have incomplete d-orbitals in ground state OR any common oxidation state.
+                        <br>
+                        <span class="text-yellow-400 font-bold">Zn, Cd, Hg</span> are <span class="mono text-white">(n-1)d<sup>10</sup> ns<sup>2</sup></span> (Full d). They are d-block but <u>NOT</u> transition elements.
+                    </p>
+                </div>
+                
+                <div class="flex-1 w-full">
+                    <h3 class="text-lg font-bold text-blue-400 mb-2">3d Series Exceptions (Must Know)</h3>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="flex justify-between bg-white/5 p-3 rounded border-l-4 border-yellow-500">
+                            <span class="font-bold">Cr (24)</span>
+                            <span class="mono text-yellow-300">3d<sup>5</sup> 4s<sup>1</sup></span>
+                            <span class="text-xs text-gray-400">Half-filled stability</span>
+                        </div>
+                        <div class="flex justify-between bg-white/5 p-3 rounded border-l-4 border-yellow-500">
+                            <span class="font-bold">Cu (29)</span>
+                            <span class="mono text-yellow-300">3d<sup>10</sup> 4s<sup>1</sup></span>
+                            <span class="text-xs text-gray-400">Fully-filled stability</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: General Characteristics (User Requested) -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="text-indigo-500 mr-3">01.5</span> General Characteristics
+        </h2>
+        
+        <div class="card p-6 rounded-2xl border-l-4 border-indigo-500">
+            <h3 class="text-xl font-bold text-gray-200 mb-4">Why are d-Orbitals Special?</h3>
+            <p class="text-gray-300 mb-4 leading-relaxed text-sm text-justify">
+                The <span class="mono text-indigo-400">d-orbitals</span> of the transition elements <span class="font-bold text-white">protrude to the periphery</span> of an atom more than the other orbitals (i.e., s and p), hence, they are more influenced by the surroundings as well as affect the atoms or molecules surrounding them. In some respects, ions of a given <span class="mono">d<sup>n</sup></span> configuration (n = 1-9) have similar magnetic and electronic properties.
+            </p>
+            <p class="text-gray-300 mb-4 leading-relaxed text-sm text-justify">
+                With partly filled d orbitals these elements exhibit certain characteristic properties such as <span class="text-indigo-300">display of a variety of oxidation states</span>, <span class="text-indigo-300">formation of coloured ions</span> and entering into <span class="text-indigo-300">complex formation</span> with a variety of ligands. The transition metals and their compounds also exhibit <span class="text-indigo-300">catalytic property</span> and <span class="text-indigo-300">paramagnetic behaviour</span>. All these characteristics have been discussed in detail later in this Unit.
+            </p>
+            <p class="text-gray-400 leading-relaxed text-xs text-justify">
+                There are greater similarities in the properties of the transition elements of a <span class="underline">horizontal row</span> in contrast to the non-transition elements. However, some group similarities also exist. We shall first study the general characteristics and their trends in the horizontal rows (particularly 3d row) and then consider some group similarities.
+            </p>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: Physical Properties (Lattice & MP) + GRAPH -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="text-orange-500 mr-3">01.8</span> Physical Properties & The Graph
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Melting Point Trends (The Graph) -->
+            <div class="card p-6 rounded-2xl col-span-1 md:col-span-2">
+                <h3 class="text-xl font-bold mb-4 text-red-400 flex justify-between items-center">
+                    <span>Trends in Melting Points</span>
+                    <span class="text-xs text-gray-500 font-normal">Fig 4.1 NCERT</span>
+                </h3>
+                <div class="h-64 md:h-80 w-full bg-slate-800/50 rounded-lg p-2">
+                    <canvas id="meltingPointChart"></canvas>
+                </div>
+                <div class="mt-4 flex gap-4 text-xs text-gray-400">
+                    <div class="bg-red-500/10 p-2 rounded border border-red-500/20 flex-1">
+                        <strong class="text-red-400">High MP:</strong> Max at <span class="mono">d<sup>5</sup></span> (Cr, Mo, W) due to max unpaired e⁻ for bonding.
+                    </div>
+                    <div class="bg-yellow-500/10 p-2 rounded border border-yellow-500/20 flex-1">
+                        <strong class="text-yellow-400">The Dip:</strong> <span class="mono font-bold">Mn & Tc</span> have abnormally low MP despite d<sup>5</sup> configuration.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lattice Structures Table -->
+            <div class="card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4 text-orange-400">Lattice Structures (3d)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-gray-400 border-b border-gray-700">
+                            <tr>
+                                <th class="pb-2">Structure</th>
+                                <th class="pb-2">Elements</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-2"><span class="mono text-blue-400">BCC</span></td>
+                                <td>V, Cr, Fe</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-2"><span class="mono text-green-400">HCP</span></td>
+                                <td>Sc, Ti, Co, Zn</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-2"><span class="mono text-purple-400">CCP (FCC)</span></td>
+                                <td>Ni, Cu</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2"><span class="mono text-red-400">Typical Metal (X)</span></td>
+                                <td>Mn</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Enthalpy Notes -->
+            <div class="card p-6 rounded-2xl flex flex-col justify-center">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">Enthalpy of Atomization</h3>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li class="flex items-start">
+                        <i class="fas fa-fire mt-1 mr-2 text-red-500"></i>
+                        <span>High enthalpy due to strong interatomic bonding (<span class="mono text-green-400">ns</span> + <span class="mono text-green-400">(n-1)d</span> e⁻).</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-arrow-down mt-1 mr-2 text-blue-500"></i>
+                        <span><span class="text-red-400">Zn</span> has lowest enthalpy (no unpaired e⁻, weak metallic bonding).</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-layer-group mt-1 mr-2 text-purple-500"></i>
+                        <span><strong>2nd/3rd Series:</strong> Higher enthalpies than 3d series &rarr; More frequent metal-metal bonding.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Trends -->
+    <section id="trends" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="text-green-500 mr-3">02.</span> Vital Tables (Complete Data)
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            
+            <!-- TABLE 1: Oxidation States -->
+            <div class="card p-6 rounded-2xl col-span-1 md:col-span-2">
+                <h3 class="text-xl font-bold mb-4 text-yellow-400">Table 4.3: Oxidation States (First Row)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-center">
+                        <thead class="text-gray-400 border-b border-gray-700 bg-gray-800/50">
+                            <tr>
+                                <th>Sc</th> <th>Ti</th> <th>V</th> <th>Cr</th> <th>Mn</th> <th>Fe</th> <th>Co</th> <th>Ni</th> <th>Cu</th> <th>Zn</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr>
+                                <td class="text-gray-600">-</td> <td>+2</td> <td>+2</td> <td>+2</td> <td class="font-bold text-white">+2</td> <td class="font-bold text-white">+2</td> <td class="font-bold text-white">+2</td> <td class="font-bold text-white">+2</td> <td class="font-bold text-white">+2</td> <td class="font-bold text-white">+2</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold text-white">+3</td> <td class="font-bold text-white">+3</td> <td>+3</td> <td class="font-bold text-white">+3</td> <td>+3</td> <td class="font-bold text-white">+3</td> <td class="font-bold text-white">+3</td> <td>+3</td> <td>+1</td> <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>-</td> <td class="font-bold text-white">+4</td> <td>+4</td> <td>+4</td> <td>+4</td> <td>+4</td> <td>+4</td> <td>+4</td> <td>-</td> <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>-</td> <td>-</td> <td class="font-bold text-white">+5</td> <td>+5</td> <td>+5</td> <td>+6</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>-</td> <td>-</td> <td>-</td> <td class="font-bold text-white">+6</td> <td>+6</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>-</td> <td>-</td> <td>-</td> <td>-</td> <td class="font-bold text-pink-500">+7</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td> <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-2 text-xs text-gray-400 text-center">Bold represents the most common/stable states.</p>
+            </div>
+
+            <!-- TABLE 2: Magnetic Moments -->
+            <div class="card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">Table 4.7: Magnetic Moments (BM)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead>
+                            <tr>
+                                <th>Ion</th> <th>Config</th> <th>Calc. &mu;</th> <th>Observed &mu;</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr><td>Sc³⁺</td> <td class="mono">3d⁰</td> <td>0</td> <td>0</td></tr>
+                            <tr><td>Ti³⁺</td> <td class="mono">3d¹</td> <td>1.73</td> <td>1.75</td></tr>
+                            <tr><td>Ti²⁺</td> <td class="mono">3d²</td> <td>2.84</td> <td>2.76</td></tr>
+                            <tr><td>V²⁺</td> <td class="mono">3d³</td> <td>3.87</td> <td>3.86</td></tr>
+                            <tr><td>Cr²⁺</td> <td class="mono">3d⁴</td> <td>4.90</td> <td>4.80</td></tr>
+                            <tr><td>Mn²⁺</td> <td class="mono">3d⁵</td> <td>5.92</td> <td>5.96</td></tr>
+                            <tr><td>Fe²⁺</td> <td class="mono">3d⁶</td> <td>4.90</td> <td>5.3 - 5.5</td></tr>
+                            <tr><td>Co²⁺</td> <td class="mono">3d⁷</td> <td>3.87</td> <td>4.4 - 5.2</td></tr>
+                            <tr><td>Ni²⁺</td> <td class="mono">3d⁸</td> <td>2.84</td> <td>2.9 - 3.4</td></tr>
+                            <tr><td>Cu²⁺</td> <td class="mono">3d⁹</td> <td>1.73</td> <td>1.8 - 2.2</td></tr>
+                            <tr><td>Zn²⁺</td> <td class="mono">3d¹⁰</td> <td>0</td> <td>-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABLE 3: Colours -->
+            <div class="card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4 text-purple-400">Table 4.8: Colours of Ions (aq)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead>
+                            <tr>
+                                <th>Config</th> <th>Ion</th> <th>Colour</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr><td class="mono">3d⁰</td> <td>Sc³⁺</td> <td class="text-gray-500">Colourless</td></tr>
+                            <tr><td class="mono">3d⁰</td> <td>Ti⁴⁺</td> <td class="text-gray-500">Colourless</td></tr>
+                            <tr><td class="mono">3d¹</td> <td>Ti³⁺</td> <td class="text-purple-400">Purple</td></tr>
+                            <tr><td class="mono">3d¹</td> <td>V⁴⁺</td> <td class="text-blue-400">Blue</td></tr>
+                            <tr><td class="mono">3d²</td> <td>V³⁺</td> <td class="text-green-400">Green</td></tr>
+                            <tr><td class="mono">3d³</td> <td>V²⁺</td> <td class="text-violet-400">Violet</td></tr>
+                            <tr><td class="mono">3d³</td> <td>Cr³⁺</td> <td class="text-violet-400">Violet</td></tr>
+                            <tr><td class="mono">3d⁴</td> <td>Mn³⁺</td> <td class="text-violet-400">Violet</td></tr>
+                            <tr><td class="mono">3d⁴</td> <td>Cr²⁺</td> <td class="text-blue-400">Blue</td></tr>
+                            <tr><td class="mono">3d⁵</td> <td>Mn²⁺</td> <td class="text-pink-400">Pink</td></tr>
+                            <tr><td class="mono">3d⁵</td> <td>Fe³⁺</td> <td class="text-yellow-400">Yellow</td></tr>
+                            <tr><td class="mono">3d⁶</td> <td>Fe²⁺</td> <td class="text-green-400">Green</td></tr>
+                            <tr><td class="mono">3d⁶/3d⁷</td> <td>Co³⁺/Co²⁺</td> <td class="text-blue-400">Blue / <span class="text-pink-400">Pink</span></td></tr>
+                            <tr><td class="mono">3d⁸</td> <td>Ni²⁺</td> <td class="text-green-400">Green</td></tr>
+                            <tr><td class="mono">3d⁹</td> <td>Cu²⁺</td> <td class="text-blue-400">Blue</td></tr>
+                            <tr><td class="mono">3d¹⁰</td> <td>Zn²⁺</td> <td class="text-gray-500">Colourless</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABLE 4A: Halides -->
+            <div class="card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4 text-green-400">Table 4.5: Halides of 3d Metals</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead>
+                            <tr>
+                                <th>OS</th> <th>Compouds</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr><td class="font-bold">+6</td> <td class="mono">CrF₆</td></tr>
+                            <tr><td class="font-bold">+5</td> <td class="mono">VF₅, CrF₅</td></tr>
+                            <tr><td class="font-bold">+4</td> <td class="mono">TiX₄, VX₄, CrX₄, MnF₄</td></tr>
+                            <tr><td class="font-bold">+3</td> <td class="mono">TiX₃, VX₃, CrX₃, MnF₃, FeX₃, CoF₃</td></tr>
+                            <tr><td class="font-bold">+2</td> <td class="mono">TiX₂, VX₂, CrX₂, MnX₂, FeX₂, CoX₂, NiX₂, CuX₂, ZnX₂</td></tr>
+                            <tr><td class="font-bold">+1</td> <td class="mono">CuX</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-2 text-xs text-gray-400 bg-white/5 p-2 rounded">
+                    <strong>Note:</strong>
+                    <br>• Highest Mn Fluoride is MnF₄.
+                    <br>• CuI₂ is not known (Cu²⁺ oxidises I⁻ to I₂).
+                </div>
+            </div>
+
+            <!-- TABLE 4B: Oxides -->
+            <div class="card p-6 rounded-2xl">
+                <h3 class="text-xl font-bold mb-4 text-red-400">Table 4.6: Oxides of 3d Metals</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead>
+                            <tr>
+                                <th>OS</th> <th>Compouds</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr><td class="font-bold">+7</td> <td class="mono text-pink-400">Mn₂O₇</td></tr>
+                            <tr><td class="font-bold">+6</td> <td class="mono text-orange-400">CrO₃</td></tr>
+                            <tr><td class="font-bold">+5</td> <td class="mono">V₂O₅</td></tr>
+                            <tr><td class="font-bold">+4</td> <td class="mono">TiO₂, V₂O₄, CrO₂, MnO₂</td></tr>
+                            <tr><td class="font-bold">+3</td> <td class="mono">Sc₂O₃, Ti₂O₃, V₂O₃, Cr₂O₃, Mn₂O₃, Fe₂O₃</td></tr>
+                            <tr><td class="font-bold">+2</td> <td class="mono">TiO, VO, MnO, FeO, CoO, NiO, CuO, ZnO</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-2 text-xs text-gray-400 bg-white/5 p-2 rounded">
+                    <strong>Mixed Oxides:</strong> Mn₃O₄, Fe₃O₄, Co₃O₄.
+                    <br><strong>Note:</strong> Highest OS in oxides coincides with Group Number (Sc to Mn).
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 4: The Heavy Hitters (Compounds) -->
+    <section id="compounds" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="text-yellow-500 mr-3">04.</span> Crucial Compounds
+        </h2>
+
+        <!-- K2Cr2O7 -->
+        <div class="card p-6 rounded-2xl mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-bold text-orange-500">Cr</div>
+            <h3 class="text-2xl font-bold text-orange-400 mb-4">Potassium Dichromate (K₂Cr₂O₇)</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Prep -->
+                <div>
+                    <h4 class="font-bold text-gray-200 mb-3 border-b border-gray-600 inline-block">Preparation (Chromite Ore)</h4>
+                    <div class="text-sm space-y-3">
+                        <div class="flex items-center">
+                            <div class="bg-gray-800 p-2 rounded border border-gray-600">FeCr₂O₄</div>
+                            <div class="reaction-arrow w-12">Na₂CO₃ + O₂</div>
+                            <div class="bg-yellow-900/50 p-2 rounded border border-yellow-600 text-yellow-200">Na₂CrO₄ (Yellow)</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-yellow-900/50 p-2 rounded border border-yellow-600 text-yellow-200">Na₂CrO₄</div>
+                            <div class="reaction-arrow w-12">H⁺</div>
+                            <div class="bg-orange-900/50 p-2 rounded border border-orange-600 text-orange-300">Na₂Cr₂O₇ (Orange)</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-orange-900/50 p-2 rounded border border-orange-600 text-orange-300">Na₂Cr₂O₇</div>
+                            <div class="reaction-arrow w-12">KCl</div>
+                            <div class="bg-orange-600 p-2 rounded font-bold text-white">K₂Cr₂O₇ (Crystals)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Properties -->
+                <div>
+                    <h4 class="font-bold text-gray-200 mb-3 border-b border-gray-600 inline-block">Key Reactions & Facts</h4>
+                    <div class="bg-white/5 p-3 rounded mb-3 text-sm">
+                        <strong>Chromate-Dichromate Equilibrium:</strong><br>
+                        <span class="text-yellow-400">2CrO₄²⁻ (Yellow)</span> + 2H⁺ ⇌ <span class="text-orange-400">Cr₂O₇²⁻ (Orange)</span> + H₂O<br>
+                        <span class="text-xs italic text-gray-400">Acidic pH favours Orange. Basic pH favours Yellow.</span>
+                    </div>
+                    <div class="text-sm">
+                        <strong>Oxidizing Action (Acidic):</strong><br>
+                        Cr₂O₇²⁻ + 14H⁺ + 6e⁻ &rarr; 2Cr³⁺ + 7H₂O<br>
+                        <ul class="list-disc list-inside text-gray-400 mt-1 pl-2">
+                            <li>I⁻ &rarr; I₂</li>
+                            <li>Fe²⁺ &rarr; Fe³⁺</li>
+                            <li>H₂S &rarr; S</li>
+                            <li>Sn²⁺ &rarr; Sn⁴⁺</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KMnO4 -->
+        <div class="card p-6 rounded-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-bold text-purple-500">Mn</div>
+            <h3 class="text-2xl font-bold text-purple-400 mb-4">Potassium Permanganate (KMnO₄)</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Prep -->
+                <div>
+                    <h4 class="font-bold text-gray-200 mb-3 border-b border-gray-600 inline-block">Preparation (Pyrolusite)</h4>
+                    <div class="text-sm space-y-3">
+                        <div class="flex items-center">
+                            <div class="bg-gray-800 p-2 rounded border border-gray-600">MnO₂</div>
+                            <div class="reaction-arrow w-12">KOH + O₂</div>
+                            <div class="bg-green-900/50 p-2 rounded border border-green-600 text-green-300">K₂MnO₄ (Green)</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-green-900/50 p-2 rounded border border-green-600 text-green-300">MnO₄²⁻</div>
+                            <div class="reaction-arrow w-12">H⁺ or Cl₂</div>
+                            <div class="bg-purple-900/50 p-2 rounded border border-purple-600 text-purple-300">MnO₄⁻ (Purple)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reactions -->
+                <div>
+                    <h4 class="font-bold text-gray-200 mb-3 border-b border-gray-600 inline-block">Oxidizing Action</h4>
+                    
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="bg-purple-500/10 p-2 rounded border border-purple-500/20">
+                            <div class="font-bold text-purple-300 mb-1">Acidic Medium (pH < 7)</div>
+                            <div class="mono text-xs">MnO₄⁻ &rarr; Mn²⁺ (+2)</div>
+                            <ul class="text-xs text-gray-400 mt-2 list-disc pl-3">
+                                <li>Fe²⁺ &rarr; Fe³⁺</li>
+                                <li>C₂O₄²⁻ &rarr; CO₂</li>
+                                <li>I⁻ &rarr; I₂</li>
+                                <li>NO₂⁻ &rarr; NO₃⁻</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-500/10 p-2 rounded border border-blue-500/20">
+                            <div class="font-bold text-blue-300 mb-1">Neutral/Faintly Alkaline</div>
+                            <div class="mono text-xs">MnO₄⁻ &rarr; MnO₂ (+4)</div>
+                            <ul class="text-xs text-gray-400 mt-2 list-disc pl-3">
+                                <li>I⁻ &rarr; IO₃⁻ (Iodate)</li>
+                                <li>S₂O₃²⁻ &rarr; SO₄²⁻</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: f-Block -->
+    <section id="fblock" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="text-teal-500 mr-3">05.</span> Inner Transition (f-Block)
+        </h2>
+        
+        <div class="card p-6 rounded-2xl">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-600 text-gray-400 text-sm uppercase">
+                            <th class="py-2">Feature</th>
+                            <th class="py-2 text-teal-400">Lanthanoids (4f)</th>
+                            <th class="py-2 text-indigo-400">Actinoids (5f)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-gray-300">
+                        <tr class="border-b border-gray-700/50">
+                            <td class="py-3 font-bold">General Config</td>
+                            <td class="mono">[Xe] 4f<sup>1-14</sup> 5d<sup>0-1</sup> 6s<sup>2</sup></td>
+                            <td class="mono">[Rn] 5f<sup>1-14</sup> 6d<sup>0-1</sup> 7s<sup>2</sup></td>
+                        </tr>
+                        <tr class="border-b border-gray-700/50">
+                            <td class="py-3 font-bold">Oxidation States</td>
+                            <td>Most stable: <span class="font-bold text-white">+3</span>.<br>Ce(+4) is stable (noble gas config). Eu(+2) is stable (half-filled).</td>
+                            <td>Variable (+3, +4, +5, +6, +7).<br>Reason: Comparable energies of 5f, 6d, 7s.</td>
+                        </tr>
+                        <tr class="border-b border-gray-700/50">
+                            <td class="py-3 font-bold">Contraction</td>
+                            <td><span class="text-teal-300">Lanthanoid Contraction:</span> Poor shielding of 4f electrons. Size decreases regularly.</td>
+                            <td><span class="text-indigo-300">Actinoid Contraction:</span> Greater than Lanthanoid contraction because 5f shielding is even poorer than 4f.</td>
+                        </tr>
+                        <tr class="border-b border-gray-700/50">
+                            <td class="py-3 font-bold">Reactivity</td>
+                            <td>Less reactive (like Al/Ca).</td>
+                            <td>Highly reactive (especially when finely divided). Radioactive.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 font-bold">Uses</td>
+                            <td><strong>Mischmetall</strong> (95% Ln, 5% Fe) - used in bullets/lighters.</td>
+                            <td>Nuclear fuel (Th, U, Pu).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-6 bg-red-500/10 border border-red-500/30 p-4 rounded-lg">
+                <h4 class="text-red-400 font-bold mb-1">Key Takeaway: Lanthanoid Contraction</h4>
+                <p class="text-sm text-gray-300">
+                    The steady decrease in atomic size along the lanthanoid series. <br>
+                    <strong>Consequence:</strong> The elements of the 2nd and 3rd transition series (e.g., Zr and Hf, Nb and Ta) have almost identical radii and properties, making separation difficult.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center text-gray-500 text-sm pb-8">
+        <p>&copy; 2025 Generated by Gemini • Good Luck for JEE!</p>
+    </footer>
+
+    <script>
+        // Chart.js Graph for Melting Points
+        const ctx = document.getElementById('meltingPointChart').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(239, 68, 68, 0.5)');
+        gradient.addColorStop(1, 'rgba(239, 68, 68, 0.0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn'],
+                datasets: [{
+                    label: 'Melting Point (K)',
+                    data: [1814, 1941, 2183, 2180, 1519, 1811, 1768, 1728, 1358, 693],
+                    borderColor: '#f87171',
+                    backgroundColor: gradient,
+                    borderWidth: 2,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#f87171',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#94a3b8' }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        ticks: { color: '#94a3b8' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

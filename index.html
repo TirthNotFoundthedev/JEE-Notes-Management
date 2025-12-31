@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tirth's Notes</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Obsidian-like Dark Theme */
+        :root {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #252526;
+            --text-primary: #d4d4d4;
+            --accent: #3b82f6;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .iframe-container {
+            height: calc(100vh - 100px);
+            width: 100%;
+            border: none;
+            background: white;
+            border-radius: 8px;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: #404040; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const App = () => {
+            const [data, setData] = useState(null); // The manifest
+            const [path, setPath] = useState(window.location.pathname.split('/').filter(Boolean));
+            const [loading, setLoading] = useState(true);
+
+            // MOCK DATA for Preview/Fallback (So you can see the UI without deploying first)
+            const mockData = {
+                "Chemistry": {
+                    "D Block": [
+                        { "name": "Notes.html", "type": "html" },
+                        { "name": "Periodic Table.pdf", "type": "pdf" }
+                    ],
+                    "Organic": [
+                         { "name": "Alkanes.html", "type": "html" }
+                    ]
+                },
+                "Physics": {
+                    "Quantum Mechanics": [
+                        { "name": "Schrodinger.pdf", "type": "pdf" }
+                    ]
+                }
+            };
+
+            // Fetch the map on load
+            useEffect(() => {
+                // We use ./manifest.json to be relative-path safe
+                fetch('./manifest.json')
+                    .then(res => {
+                        if (!res.ok) throw new Error("Manifest missing");
+                        return res.json();
+                    })
+                    .then(json => {
+                        setData(json);
+                        setLoading(false);
+                    })
+                    .catch(err => {
+                        console.warn("Manifest not found or fetch error (expected in preview). Using mock data.", err);
+                        setData(mockData); // Fallback to mock data so UI renders
+                        setLoading(false);
+                    });
+            }, []);
+
+            // Handle browser back/forward buttons
+            useEffect(() => {
+                const onPopState = () => setPath(window.location.pathname.split('/').filter(Boolean));
+                window.addEventListener('popstate', onPopState);
+                return () => window.removeEventListener('popstate', onPopState);
+            }, []);
+
+            // Navigation Helper
+            const navigate = (newPath) => {
+                const url = '/' + newPath.join('/');
+                // In preview/iframe, pushState might not change the top URL visually, but internal routing works
+                window.history.pushState({}, '', url);
+                setPath(newPath);
+            };
+
+            if (loading) return <div className="p-10 text-zinc-400">Loading Digital Garden...</div>;
+            
+            // --- ROUTING LOGIC ---
+            
+            // 1. HOME VIEW (List Categories)
+            // If path is empty OR path doesn't match a known category (fallback for preview URLs)
+            if (path.length === 0 || !data[path[0]]) {
+                return (
+                    <Layout title="Library" breadcrumbs={[]}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {Object.keys(data).map(category => (
+                                <Card 
+                                    key={category} 
+                                    title={category} 
+                                    icon="library"
+                                    onClick={() => navigate([category])} 
+                                    subtitle={`${Object.keys(data[category]).length} Notebooks`}
+                                />
+                            ))}
+                        </div>
+                    </Layout>
+                );
+            }
+
+            const [category, notebook, item] = path;
+
+            // 2. CATEGORY VIEW (List Notebooks)
+            if (path.length === 1 && data[category]) {
+                return (
+                    <Layout title={category} breadcrumbs={[{label: 'Home', action: () => navigate([])}]}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {Object.keys(data[category]).map(nb => (
+                                <Card 
+                                    key={nb} 
+                                    title={nb} 
+                                    icon="book"
+                                    onClick={() => navigate([category, nb])}
+                                    subtitle={`${data[category][nb].length} Items`}
+                                />
+                            ))}
+                        </div>
+                    </Layout>
+                );
+            }
+
+            // 3. NOTEBOOK VIEW (List Items)
+            if (path.length === 2 && data[category]?.[notebook]) {
+                return (
+                    <Layout title={notebook} breadcrumbs={[
+                        {label: 'Home', action: () => navigate([])}, 
+                        {label: category, action: () => navigate([category])}
+                    ]}>
+                        <div className="flex flex-col gap-2">
+                            {data[category][notebook].map(file => (
+                                <div 
+                                    key={file.name}
+                                    onClick={() => navigate([category, notebook, file.name])}
+                                    className="p-4 bg-[#252526] hover:bg-[#2d2d2d] rounded cursor-pointer border border-zinc-700 flex items-center justify-between group"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <i data-lucide={file.type === 'pdf' ? 'file-text' : 'code-2'} className="text-zinc-400 w-5 h-5"></i>
+                                        <span>{file.name}</span>
+                                    </div>
+                                    <i data-lucide="arrow-right" className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                </div>
+                            ))}
+                        </div>
+                    </Layout>
+                );
+            }
+
+            // 4. ITEM VIEW (The Content)
+            if (path.length >= 3) {
+                // Reconstruct filename if it had spaces that got split (basic handling)
+                const realItemName = path.slice(2).join('/');
+                const fileUrl = `/data/${category}/${notebook}/${realItemName}`;
+                
+                return (
+                    <Layout 
+                        title={realItemName} 
+                        isFullWidth={true}
+                        breadcrumbs={[
+                            {label: 'Home', action: () => navigate([])}, 
+                            {label: category, action: () => navigate([category])},
+                            {label: notebook, action: () => navigate([category, notebook])}
+                        ]}
+                    >
+                        <div className="mb-4 flex gap-4">
+                            <a href={fileUrl} download className="text-blue-400 hover:underline text-sm flex items-center gap-2">
+                                <i data-lucide="download" className="w-4 h-4"></i> Download Original
+                            </a>
+                            <a href={fileUrl} target="_blank" className="text-blue-400 hover:underline text-sm flex items-center gap-2">
+                                <i data-lucide="external-link" className="w-4 h-4"></i> Open in New Tab
+                            </a>
+                        </div>
+                        
+                        <iframe src={fileUrl} className="iframe-container" title="Content Viewer"></iframe>
+                    </Layout>
+                );
+            }
+
+            return <div className="p-10">404 - Path not found in Garden</div>;
+        };
+
+        // --- COMPONENTS ---
+
+        const Layout = ({ title, breadcrumbs, children, isFullWidth }) => {
+            useEffect(() => lucide.createIcons(), [children]);
+            return (
+                <div className={`min-h-screen p-6 ${isFullWidth ? 'max-w-[95%]' : 'max-w-4xl'} mx-auto`}>
+                    <nav className="flex gap-2 text-sm text-zinc-500 mb-6 font-mono">
+                        {breadcrumbs.map((b, i) => (
+                            <span key={i} className="flex gap-2 items-center">
+                                <button onClick={b.action} className="hover:text-zinc-300">{b.label}</button>
+                                <span>/</span>
+                            </span>
+                        ))}
+                        <span className="text-zinc-300">{title}</span>
+                    </nav>
+                    <h1 className="text-3xl font-bold mb-8 text-white">{title}</h1>
+                    {children}
+                </div>
+            );
+        };
+
+        const Card = ({ title, subtitle, onClick, icon }) => (
+            <div onClick={onClick} className="bg-[#252526] p-6 rounded-lg border border-zinc-700 hover:border-blue-500 cursor-pointer transition-all hover:translate-y-[-2px]">
+                <div className="flex items-center gap-3 mb-3 text-blue-400">
+                    <i data-lucide={icon} className="w-6 h-6"></i>
+                    <span className="text-xs font-mono uppercase tracking-wider text-zinc-500">Folder</span>
+                </div>
+                <h3 className="text-xl font-semibold text-zinc-100">{title}</h3>
+                <p className="text-sm text-zinc-500 mt-2">{subtitle}</p>
+            </div>
+        );
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
