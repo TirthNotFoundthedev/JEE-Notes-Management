@@ -1,9 +1,43 @@
 {
-  "Chemistry": {
+  "Inorganic Chemistry": {
     "D Block": [
       {
         "name": "Webnotes.html",
         "type": "Webnotes"
+      }
+    ]
+  },
+  "Mathematics": {},
+  "Organic Chemistry": {},
+  "Physical Chemistry": {},
+  "Physics": {
+    "AC": [],
+    "Electrostats": [
+      {
+        "name": "Formula Sheet.pdf",
+        "type": "Formula Sheet"
+      }
+    ],
+    "EMI": [
+      {
+        "name": "Short Notes.pdf",
+        "type": "Short Notes"
+      }
+    ],
+    "Magnetism": [
+      {
+        "name": "Short Notes.pdf",
+        "type": "Short Notes"
+      }
+    ],
+    "Rotational Motion": [
+      {
+        "name": "All MOI formulas.pdf",
+        "type": "All MOI formulas"
+      },
+      {
+        "name": "Super Short Notes.pdf",
+        "type": "Super Short Notes"
       }
     ]
   }
