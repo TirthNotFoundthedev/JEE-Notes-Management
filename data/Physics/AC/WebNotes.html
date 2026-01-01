@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AC Circuits: Ultimate JEE 2026 Visualizer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration (The Fix) -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+
+    <!-- Theme Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-cyan': '#00f3ff',
+                        'neon-pink': '#ff00ff',
+                        'neon-yellow': '#ffe600',
+                        'neon-green': '#39ff14',
+                        'dark-bg': '#0a0a0f',
+                        'panel-bg': '#13131f',
+                        'border-dim': '#2d2d3d',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #0a0a0f; color: #e2e8f0; }
+        .chart-wrapper { position: relative; height: 300px; width: 100%; }
+        .schematic-canvas { width: 100%; height: 120px; background: #0f0f15; border-radius: 8px; border: 1px solid #2d2d3d; }
+        
+        /* Neon Glow Effects */
+        .neon-text-cyan { text-shadow: 0 0 10px rgba(0, 243, 255, 0.5); }
+        .neon-border-pink { box-shadow: 0 0 10px rgba(255, 0, 255, 0.2); border-color: #ff00ff; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0f; }
+        ::-webkit-scrollbar-thumb { background: #2d2d3d; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4b4b63; }
+        
+        /* MathJax adjustments */
+        mjx-container { outline: none; }
+    </style>
+</head>
+<body class="antialiased selection:bg-neon-pink selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-dark-bg/90 backdrop-blur border-b border-border-dim">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-neon-cyan rounded-full animate-pulse"></div>
+                <span class="text-xl font-bold tracking-tighter font-mono">AC_MASTER<span class="text-neon-pink">.JEE26</span></span>
+            </div>
+            <div class="text-xs font-mono text-gray-500">v2.2 // MATHJAX ENABLED</div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-16">
+
+        <!-- 1. INTRO & WAVEFORMS -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 space-y-4">
+                <h2 class="text-3xl font-bold text-white border-l-4 border-neon-cyan pl-4">Waveform Dynamics</h2>
+                <p class="text-gray-400 text-sm">AC isn't just a static wave. The relationship between Voltage (V) and Current (I) defines the circuit element. Use the toggles to see the Phase Shift ($\phi$).</p>
+                
+                <!-- Controls -->
+                <div class="grid grid-cols-1 gap-2">
+                    <button onclick="updateWave('R')" class="px-4 py-3 bg-panel-bg border border-border-dim hover:border-neon-green rounded text-left transition flex justify-between group">
+                        <span class="text-sm font-bold group-hover:text-neon-green">Pure Resistor</span>
+                        <span class="font-mono text-xs text-gray-500">$\phi = 0^\circ$</span>
+                    </button>
+                    <button onclick="updateWave('L')" class="px-4 py-3 bg-panel-bg border border-border-dim hover:border-neon-pink rounded text-left transition flex justify-between group">
+                        <span class="text-sm font-bold group-hover:text-neon-pink">Pure Inductor</span>
+                        <span class="font-mono text-xs text-gray-500">$\phi = +90^\circ$</span>
+                    </button>
+                    <button onclick="updateWave('C')" class="px-4 py-3 bg-panel-bg border border-border-dim hover:border-neon-cyan rounded text-left transition flex justify-between group">
+                        <span class="text-sm font-bold group-hover:text-neon-cyan">Pure Capacitor</span>
+                        <span class="font-mono text-xs text-gray-500">$\phi = -90^\circ$</span>
+                    </button>
+                </div>
+
+                <!-- Standards Box -->
+                <div class="mt-4 p-4 bg-panel-bg rounded border border-gray-700">
+                    <h3 class="text-neon-yellow font-bold text-xs uppercase mb-2">Grid Standards</h3>
+                    <div class="flex items-end justify-between border-b border-gray-700 pb-2 mb-2">
+                        <span class="text-gray-400 text-sm">India</span>
+                        <span class="text-white font-mono text-sm">220V / 50Hz</span>
+                    </div>
+                    <div class="flex items-end justify-between">
+                        <span class="text-gray-400 text-sm">USA</span>
+                        <span class="text-white font-mono text-sm">110V / 60Hz</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-panel-bg rounded-xl border border-border-dim p-4 shadow-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-gray-300 font-bold">Live Oscilloscope</h3>
+                    <div class="flex space-x-4 text-xs">
+                        <span class="flex items-center"><div class="w-2 h-2 bg-neon-cyan rounded-full mr-2"></div>Voltage</span>
+                        <span class="flex items-center"><div class="w-2 h-2 bg-neon-pink rounded-full mr-2"></div>Current</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="waveChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CIRCUIT VISUALIZER (FIXED SPACING) -->
+        <section>
+            <h2 class="text-3xl font-bold text-white border-l-4 border-neon-pink pl-4 mb-6">Circuit Anatomy & Impedance</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- RL Circuit Card -->
+                <div class="bg-panel-bg rounded-xl border border-border-dim p-4 hover:border-neon-pink transition duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-bold text-white">Series RL</h3>
+                        <span class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-400">Inductive</span>
+                    </div>
+                    <!-- Schematic Canvas -->
+                    <canvas id="canvasRL" class="schematic-canvas mb-4"></canvas>
+                    
+                    <div class="space-y-4">
+                        <!-- Impedance Triangle (FIXED: Increased Height & Label Position) -->
+                        <div class="relative h-48 bg-dark-bg rounded border border-gray-800 overflow-hidden">
+                            <div class="absolute top-3 left-3 text-xs text-gray-500 font-mono tracking-wide">Impedance<br>Triangle (RL)</div>
+                            <!-- Base R -->
+                            <div class="absolute bottom-4 left-8 h-1 bg-neon-green w-24"></div>
+                            <div class="absolute bottom-1 left-16 text-neon-green text-sm font-bold">R</div>
+                            <!-- Height XL -->
+                            <div class="absolute bottom-4 left-[calc(32px+96px)] w-1 bg-neon-pink h-24"></div>
+                            <div class="absolute bottom-16 left-[calc(32px+105px)] text-neon-pink text-sm font-bold">X<sub>L</sub></div>
+                            <!-- Hypotenuse Z -->
+                            <div class="absolute bottom-4 left-8 bg-white origin-bottom-left" style="width: 135px; height: 2px; transform: rotate(-45deg);"></div>
+                            <div class="absolute bottom-20 left-12 text-white text-sm font-bold">Z</div>
+                        </div>
+                        <div class="text-center font-mono text-sm text-gray-300 bg-black/20 p-2 rounded">
+                            $Z = \sqrt{R^2 + X_L^2}$<br>
+                            $\tan\phi = X_L/R$
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RC Circuit Card -->
+                <div class="bg-panel-bg rounded-xl border border-border-dim p-4 hover:border-neon-cyan transition duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-bold text-white">Series RC</h3>
+                        <span class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-400">Capacitive</span>
+                    </div>
+                    <!-- Schematic Canvas -->
+                    <canvas id="canvasRC" class="schematic-canvas mb-4"></canvas>
+                    
+                    <div class="space-y-4">
+                        <!-- Impedance Triangle (FIXED: Inverted Triangle Spacing) -->
+                        <div class="relative h-48 bg-dark-bg rounded border border-gray-800 overflow-hidden">
+                            <div class="absolute bottom-3 left-3 text-xs text-gray-500 font-mono tracking-wide">Impedance<br>Triangle (RC)</div>
+                            <!-- Base R -->
+                            <div class="absolute top-6 left-8 h-1 bg-neon-green w-24"></div>
+                            <div class="absolute top-1 left-16 text-neon-green text-sm font-bold">R</div>
+                            <!-- Height XC (Down) -->
+                            <div class="absolute top-6 left-[calc(32px+96px)] w-1 bg-neon-cyan h-24"></div>
+                            <div class="absolute top-16 left-[calc(32px+105px)] text-neon-cyan text-sm font-bold">X<sub>C</sub></div>
+                            <!-- Hypotenuse Z -->
+                            <div class="absolute top-6 left-8 bg-white origin-top-left" style="width: 135px; height: 2px; transform: rotate(45deg);"></div>
+                            <div class="absolute top-20 left-12 text-white text-sm font-bold">Z</div>
+                        </div>
+                        <div class="text-center font-mono text-sm text-gray-300 bg-black/20 p-2 rounded">
+                            $Z = \sqrt{R^2 + X_C^2}$<br>
+                            $\tan\phi = X_C/R$
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RLC Circuit Card -->
+                <div class="bg-panel-bg rounded-xl border border-border-dim p-4 hover:border-neon-yellow transition duration-300">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-bold text-white">Series RLC</h3>
+                        <span class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-400">Resonant</span>
+                    </div>
+                    <!-- Schematic Canvas -->
+                    <canvas id="canvasRLC" class="schematic-canvas mb-4"></canvas>
+                    
+                    <div class="p-4 bg-dark-bg rounded border border-gray-800 text-sm space-y-4 h-48 flex flex-col justify-center">
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-gray-400">Condition</span>
+                            <span class="text-neon-yellow font-mono font-bold">$X_L = X_C$</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 pb-2">
+                            <span class="text-gray-400">Impedance</span>
+                            <span class="text-white font-mono">$Z_{min} = R$</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-400">Phase</span>
+                            <span class="text-white font-mono">$\phi = 0^\circ$</span>
+                        </div>
+                        <div class="text-xs text-gray-500 text-center mt-2 pt-2 border-t border-gray-800">
+                            (Vectors Cancel Out)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. RESONANCE DEEP DIVE -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Series Resonance (Acceptor) -->
+            <div class="bg-panel-bg rounded-xl border border-border-dim p-6 shadow-lg">
+                <h3 class="text-xl font-bold text-neon-yellow mb-2">Series Resonance (Current Max)</h3>
+                <p class="text-xs text-gray-400 mb-4">Known as an "Acceptor Circuit". At $f_0$, Current is maximum.</p>
+                <div class="chart-wrapper">
+                    <canvas id="seriesResChart"></canvas>
+                </div>
+                <div class="mt-4 flex justify-center space-x-6 text-xs font-mono">
+                    <span class="text-neon-green">Bandwidth = $f_2 - f_1 = R/L$</span>
+                    <span class="text-white">Q = $f_0 / \Delta f$</span>
+                </div>
+            </div>
+
+            <!-- Parallel Resonance (Rejector) -->
+            <div class="bg-panel-bg rounded-xl border border-border-dim p-6 shadow-lg">
+                <h3 class="text-xl font-bold text-neon-pink mb-2">Parallel Resonance (Current Min)</h3>
+                <p class="text-xs text-gray-400 mb-4">Known as a "Rejector Circuit". At $f_0$, Net Current is minimum.</p>
+                <div class="chart-wrapper">
+                    <canvas id="parallelResChart"></canvas>
+                </div>
+                <div class="mt-4 flex justify-center text-xs font-mono text-gray-400">
+                    Used in radio tuning to reject unwanted frequencies.
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TRANSFORMER & POWER -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Power Triangle (FIXED SPACING) -->
+            <div class="bg-panel-bg rounded-xl border border-border-dim p-6">
+                <h3 class="text-lg font-bold text-white mb-4">Power Triangle</h3>
+                <div class="aspect-square relative flex items-end justify-start p-8 bg-dark-bg rounded border border-gray-800 overflow-hidden">
+                    <div class="absolute top-2 left-2 text-xs text-gray-500">Scalar<br>Diagram</div>
+                    <!-- Triangle CSS -->
+                    <div style="width: 0; height: 0; border-bottom: 150px solid rgba(6, 182, 212, 0.1); border-right: 200px solid transparent; position: absolute; bottom: 30px; left: 30px;"></div>
+                    
+                    <!-- P Vector -->
+                    <div class="absolute bottom-[30px] left-[30px] w-[200px] h-1 bg-neon-green"></div>
+                    <div class="absolute bottom-[10px] left-[100px] text-neon-green font-mono text-xs font-bold">P (Watts)</div>
+
+                    <!-- Q Vector -->
+                    <div class="absolute bottom-[30px] left-[230px] w-1 h-[150px] bg-neon-pink"></div>
+                    <div class="absolute bottom-[100px] left-[240px] text-neon-pink font-mono text-xs font-bold">Q (VAR)</div>
+
+                    <!-- S Vector -->
+                    <div class="absolute bottom-[30px] left-[30px] w-[250px] h-1 bg-neon-cyan origin-bottom-left -rotate-[37deg]"></div>
+                    <div class="absolute bottom-[160px] left-[100px] text-neon-cyan font-mono text-xs font-bold">S (VA)</div>
+
+                    <div class="absolute bottom-[40px] left-[50px] text-white text-xs">$\phi$</div>
+                </div>
+            </div>
+
+            <!-- Transformer Schematic -->
+            <div class="md:col-span-2 bg-panel-bg rounded-xl border border-border-dim p-6">
+                <h3 class="text-lg font-bold text-white mb-4">Transformer Core & Losses</h3>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 py-8">
+                    <!-- Primary -->
+                    <div class="text-center group">
+                        <div class="w-24 h-32 border-4 border-neon-cyan rounded-lg relative flex items-center justify-center" style="background: repeating-linear-gradient(45deg, rgba(6,182,212,0.1), rgba(6,182,212,0.1) 5px, transparent 5px, transparent 10px);">
+                            <div class="absolute -left-4 top-4 w-4 h-1 bg-neon-cyan"></div>
+                            <div class="absolute -left-4 bottom-4 w-4 h-1 bg-neon-cyan"></div>
+                            <span class="text-2xl font-bold text-white">N<sub>p</sub></span>
+                        </div>
+                        <p class="mt-2 text-sm text-neon-cyan">Input AC</p>
+                    </div>
+
+                    <!-- Core -->
+                    <div class="flex-1 h-32 border-y-8 border-gray-500 bg-gray-700/50 relative flex items-center justify-center mx-[-10px] z-0 rounded">
+                        <div class="text-center text-xs text-gray-300">
+                            <p class="font-bold uppercase tracking-widest">Soft Iron Core</p>
+                            <p class="text-[10px] text-gray-400">Laminated to reduce Eddy Currents</p>
+                            <div class="w-full h-px bg-white/20 mt-1 animate-pulse"></div>
+                            <p class="mt-1">Mutual Flux $\Phi_B$</p>
+                        </div>
+                    </div>
+
+                    <!-- Secondary -->
+                    <div class="text-center group">
+                        <div class="w-24 h-32 border-4 border-neon-pink rounded-lg relative flex items-center justify-center" style="background: repeating-linear-gradient(45deg, rgba(255,0,255,0.1), rgba(255,0,255,0.1) 5px, transparent 5px, transparent 10px);">
+                            <div class="absolute -right-4 top-4 w-4 h-1 bg-neon-pink"></div>
+                            <div class="absolute -right-4 bottom-4 w-4 h-1 bg-neon-pink"></div>
+                            <span class="text-2xl font-bold text-white">N<sub>s</sub></span>
+                        </div>
+                        <p class="mt-2 text-sm text-neon-pink">Output AC</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- LOGIC -->
+    <script>
+        // 1. SCHEMATIC DRAWER (Canvas)
+        function drawResistor(ctx, x, y, width) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            const seg = width / 6;
+            ctx.lineTo(x + seg, y - 10);
+            ctx.lineTo(x + 2*seg, y + 10);
+            ctx.lineTo(x + 3*seg, y - 10);
+            ctx.lineTo(x + 4*seg, y + 10);
+            ctx.lineTo(x + 5*seg, y - 10);
+            ctx.lineTo(x + width, y);
+            ctx.stroke();
+            // Label
+            ctx.fillStyle = '#39ff14';
+            ctx.fillText('R', x + width/2 - 5, y - 20);
+        }
+
+        function drawInductor(ctx, x, y, width) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            const loops = 4;
+            const step = width / loops;
+            for(let i=0; i<loops; i++) {
+                ctx.bezierCurveTo(
+                    x + i*step + step/2, y - 15, 
+                    x + i*step + step/2, y + 15, 
+                    x + (i+1)*step, y
+                );
+            }
+            ctx.stroke();
+            // Label
+            ctx.fillStyle = '#ff00ff';
+            ctx.fillText('L', x + width/2 - 5, y - 20);
+        }
+
+        function drawCapacitor(ctx, x, y, width) {
+            const gap = 8;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + width/2 - gap, y); // Left wire
+            
+            ctx.moveTo(x + width/2 - gap, y - 15);
+            ctx.lineTo(x + width/2 - gap, y + 15); // Plate 1
+            
+            ctx.moveTo(x + width/2 + gap, y - 15);
+            ctx.lineTo(x + width/2 + gap, y + 15); // Plate 2
+            
+            ctx.moveTo(x + width/2 + gap, y);
+            ctx.lineTo(x + width, y); // Right wire
+            ctx.stroke();
+            // Label
+            ctx.fillStyle = '#00f3ff';
+            ctx.fillText('C', x + width/2 - 5, y - 20);
+        }
+
+        function drawACSource(ctx, x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, 15, 0, Math.PI * 2);
+            ctx.stroke();
+            // Wave symbol inside
+            ctx.beginPath();
+            ctx.moveTo(x-8, y);
+            ctx.bezierCurveTo(x-4, y-8, x, y-8, x, y);
+            ctx.bezierCurveTo(x, y+8, x+4, y+8, x+8, y);
+            ctx.stroke();
+        }
+
+        function initSchematics() {
+            const configs = [
+                { id: 'canvasRL', type: 'RL' },
+                { id: 'canvasRC', type: 'RC' },
+                { id: 'canvasRLC', type: 'RLC' },
+            ];
+
+            configs.forEach(conf => {
+                const cvs = document.getElementById(conf.id);
+                if(!cvs) return;
+                const ctx = cvs.getContext('2d');
+                
+                // Set resolution
+                const dpr = window.devicePixelRatio || 1;
+                const rect = cvs.getBoundingClientRect();
+                cvs.width = rect.width * dpr;
+                cvs.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                
+                // Styles
+                ctx.strokeStyle = '#e2e8f0';
+                ctx.lineWidth = 2;
+                ctx.font = 'bold 14px Inter';
+
+                const centerY = rect.height / 2;
+                const w = rect.width;
+
+                // Draw Circuit Loop
+                ctx.beginPath();
+                ctx.moveTo(40, centerY + 40); // Bottom Left
+                ctx.lineTo(w - 40, centerY + 40); // Bottom Right
+                ctx.lineTo(w - 40, centerY - 40); // Top Right
+                ctx.lineTo(40, centerY - 40); // Top Left
+                ctx.lineTo(40, centerY + 40); // Close Loop
+                ctx.stroke();
+
+                // Clear gaps for components and draw
+                // Source on Left
+                ctx.clearRect(25, centerY - 15, 30, 30);
+                drawACSource(ctx, 40, centerY);
+
+                // Components on Top
+                const topY = centerY - 40;
+                
+                if (conf.type === 'RL') {
+                    ctx.clearRect(w/3 - 20, topY - 10, 40, 20);
+                    drawResistor(ctx, w/3 - 20, topY, 40);
+                    
+                    ctx.clearRect(2*w/3 - 20, topY - 10, 40, 20);
+                    drawInductor(ctx, 2*w/3 - 20, topY, 40);
+                } else if (conf.type === 'RC') {
+                    ctx.clearRect(w/3 - 20, topY - 10, 40, 20);
+                    drawResistor(ctx, w/3 - 20, topY, 40);
+                    
+                    ctx.clearRect(2*w/3 - 20, topY - 10, 40, 20);
+                    drawCapacitor(ctx, 2*w/3 - 20, topY, 40);
+                } else if (conf.type === 'RLC') {
+                    ctx.clearRect(w/4 - 15, topY - 10, 30, 20);
+                    drawResistor(ctx, w/4 - 15, topY, 30);
+                    
+                    ctx.clearRect(w/2 - 15, topY - 10, 30, 20);
+                    drawInductor(ctx, w/2 - 15, topY, 30);
+                    
+                    ctx.clearRect(3*w/4 - 15, topY - 10, 30, 20);
+                    drawCapacitor(ctx, 3*w/4 - 15, topY, 30);
+                }
+            });
+        }
+
+        // 2. INTERACTIVE WAVE CHART
+        let waveChart;
+        function initWaveChart() {
+            const ctx = document.getElementById('waveChart').getContext('2d');
+            
+            // Initial Data: Resistive (In Phase)
+            const labels = [];
+            const vData = [];
+            const iData = [];
+            for(let i=0; i<=360; i+=5) {
+                labels.push(i);
+                const rad = i * Math.PI / 180;
+                vData.push(Math.sin(rad));
+                iData.push(Math.sin(rad) * 0.8); // Amplitude diff
+            }
+
+            Chart.defaults.color = '#64748b';
+            Chart.defaults.font.family = 'JetBrains Mono';
+
+            waveChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Voltage', data: vData, borderColor: '#00f3ff', borderWidth: 2, pointRadius: 0, tension: 0.4 },
+                        { label: 'Current', data: iData, borderColor: '#ff00ff', borderWidth: 2, pointRadius: 0, tension: 0.4 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        x: { display: false },
+                        y: { display: false, min: -1.5, max: 1.5 }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function updateWave(type) {
+            const vData = [];
+            const iData = [];
+            let phase = 0;
+            if(type === 'L') phase = -Math.PI/2; // Current lags V by 90 (so shift right)
+            if(type === 'C') phase = Math.PI/2;  // Current leads V by 90 (so shift left)
+
+            for(let i=0; i<=360; i+=5) {
+                const rad = i * Math.PI / 180;
+                vData.push(Math.sin(rad));
+                iData.push(Math.sin(rad + phase) * 0.8);
+            }
+            waveChart.data.datasets[0].data = vData;
+            waveChart.data.datasets[1].data = iData;
+            waveChart.update();
+        }
+
+        // 3. RESONANCE CHARTS
+        function initResonanceCharts() {
+            // Series (Bell Curve)
+            const ctxS = document.getElementById('seriesResChart').getContext('2d');
+            const dataS = [];
+            const labels = [];
+            const bwLine = []; // For the bandwidth marker
+            
+            for(let f=0; f<=100; f++) {
+                labels.push(f);
+                // Lorentzian approximation
+                const val = 100 / Math.sqrt(1 + Math.pow((f*f - 2500)/(10*f), 2));
+                dataS.push(val);
+                bwLine.push(val >= 70.7 ? 70.7 : null); // Draw line only at RMS level
+            }
+
+            new Chart(ctxS, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Current (I)', data: dataS, borderColor: '#ffe600', borderWidth: 3, pointRadius: 0, tension: 0.4 },
+                        { label: 'I_max / √2', data: bwLine, borderColor: '#39ff14', borderDash: [5,5], borderWidth: 1, pointRadius: 0 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { x: { display: true, title: {display: true, text: 'Frequency (Hz)'} }, y: { display: false } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Parallel (Valley Curve)
+            const ctxP = document.getElementById('parallelResChart').getContext('2d');
+            const dataP = dataS.map(v => 100 - v + 10); // Invert
+            
+            new Chart(ctxP, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: 'Net Current (I)', data: dataP, borderColor: '#ff00ff', borderWidth: 3, pointRadius: 0, tension: 0.4 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { x: { display: true, title: {display: true, text: 'Frequency (Hz)'} }, y: { display: false } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // Init All
+        window.onload = () => {
+            initSchematics();
+            initWaveChart();
+            initResonanceCharts();
+        };
+
+    </script>
+</body>
+</html>

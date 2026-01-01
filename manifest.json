@@ -11,7 +11,12 @@
   "Organic Chemistry": {},
   "Physical Chemistry": {},
   "Physics": {
-    "AC": [],
+    "AC": [
+      {
+        "name": "WebNotes.html",
+        "type": "WebNotes"
+      }
+    ],
     "Electrostats": [
       {
         "name": "Formula Sheet.pdf",
