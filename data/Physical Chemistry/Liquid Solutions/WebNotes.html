@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Structure - JEE Ultimate Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .section-card { @apply bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm; }
+        .gradient-text { @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500; }
+        .neon-border { box-shadow: 0 0 10px rgba(34, 211, 238, 0.1); }
+        mjx-container { font-size: 110% !important; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="p-2 md:p-8">
+
+    <!-- Main Container -->
+    <div class="max-w-5xl mx-auto space-y-8">
+
+        <!-- HEADER -->
+        <header class="text-center py-10 border-b border-slate-700">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 text-white">
+                ATOMIC <span class="gradient-text">STRUCTURE</span>
+            </h1>
+            <p class="text-xl text-slate-400 font-mono">JEE MAINS & ADVANCED • ULTIMATE CHEAT SHEET</p>
+        </header>
+
+        <!-- 1. FUNDAMENTAL PARTICLES -->
+        <section class="section-card neon-border">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-full bg-cyan-500 flex items-center justify-center text-slate-900 font-bold">1</div>
+                <h2 class="text-2xl font-bold text-cyan-400">Fundamental Particles</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-600 text-slate-300">
+                            <th class="p-3">Particle</th>
+                            <th class="p-3">Symbol</th>
+                            <th class="p-3">Charge (C)</th>
+                            <th class="p-3">Mass (kg)</th>
+                            <th class="p-3">Rel. Mass (amu)</th>
+                            <th class="p-3">Discoverer</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm font-mono text-slate-400">
+                        <tr class="border-b border-slate-700/50 hover:bg-slate-700/30">
+                            <td class="p-3 text-cyan-300 font-bold">Electron</td>
+                            <td class="p-3">\(e^-\)</td>
+                            <td class="p-3">\(-1.602 \times 10^{-19}\)</td>
+                            <td class="p-3">\(9.109 \times 10^{-31}\)</td>
+                            <td class="p-3">0.00054</td>
+                            <td class="p-3">J.J. Thomson</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50 hover:bg-slate-700/30">
+                            <td class="p-3 text-pink-300 font-bold">Proton</td>
+                            <td class="p-3">\(p^+\)</td>
+                            <td class="p-3">\(+1.602 \times 10^{-19}\)</td>
+                            <td class="p-3">\(1.672 \times 10^{-27}\)</td>
+                            <td class="p-3">1.00727</td>
+                            <td class="p-3">E. Rutherford</td>
+                        </tr>
+                        <tr class="hover:bg-slate-700/30">
+                            <td class="p-3 text-yellow-300 font-bold">Neutron</td>
+                            <td class="p-3">\(n^0\)</td>
+                            <td class="p-3">0</td>
+                            <td class="p-3">\(1.674 \times 10^{-27}\)</td>
+                            <td class="p-3">1.00867</td>
+                            <td class="p-3">J. Chadwick</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 text-center text-sm text-slate-500 bg-slate-900/50 p-2 rounded">
+                Note: Mass of Neutron > Mass of Proton > Mass of Electron
+            </div>
+        </section>
+
+        <!-- 2. EM WAVE & PHOTOELECTRIC -->
+        <section class="grid md:grid-cols-2 gap-6">
+            <!-- Planck -->
+            <div class="section-card border-l-4 border-l-purple-500">
+                <h2 class="text-xl font-bold text-purple-400 mb-4">Planck's Quantum Theory</h2>
+                <div class="bg-slate-900 p-4 rounded-lg text-center mb-4">
+                    $$E = h\nu = \frac{hc}{\lambda}$$
+                </div>
+                <ul class="text-sm text-slate-300 space-y-2">
+                    <li>• \(h = 6.626 \times 10^{-34} \, \text{J s}\)</li>
+                    <li>• \(hc \approx 1240 \, \text{eV nm}\) <span class="text-xs text-yellow-500">(Shortcut!)</span></li>
+                </ul>
+            </div>
+            
+            <!-- Photoelectric -->
+            <div class="section-card border-l-4 border-l-yellow-500">
+                <h2 class="text-xl font-bold text-yellow-400 mb-4">Photoelectric Effect</h2>
+                <div class="bg-slate-900 p-4 rounded-lg text-center mb-4">
+                    $$h\nu = \Phi + K.E._{\text{max}}$$
+                </div>
+                <div class="text-sm text-slate-300 space-y-1">
+                    <p>• Work Function: \(\Phi = h\nu_0\)</p>
+                    <p>• \(K.E._{\text{max}} = \frac{1}{2}mv^2_{\text{max}} = eV_s\) (stopping potential)</p>
+                    <p class="text-xs text-slate-500 mt-2">Graph of \(K.E._{\text{max}}\) vs \(\nu\): Slope = \(h\), Intercept = \(-\Phi\)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. BOHR'S MODEL -->
+        <section class="section-card relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+            
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-slate-900 font-bold">3</div>
+                <h2 class="text-2xl font-bold text-blue-400">Bohr's Atomic Model</h2>
+                <span class="text-xs bg-slate-700 px-2 py-1 rounded text-slate-300">H, He+, Li2+ only</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-blue-500/30">
+                    <h3 class="text-blue-300 font-bold mb-2">Radius</h3>
+                    $$r_n = 0.529 \frac{n^2}{Z} \, \mathring{A}$$
+                </div>
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-green-500/30">
+                    <h3 class="text-green-300 font-bold mb-2">Velocity</h3>
+                    $$v_n = 2.18 \times 10^6 \frac{Z}{n} \, \text{m/s}$$
+                    <p class="text-xs mt-2 text-slate-500">\(v \approx c/137 \cdot (Z/n)\)</p>
+                </div>
+                <div class="bg-slate-900/80 p-4 rounded-xl border border-red-500/30">
+                    <h3 class="text-red-300 font-bold mb-2">Total Energy</h3>
+                    $$E_n = -13.6 \frac{Z^2}{n^2} \, \text{eV/atom}$$
+                    <p class="text-xs mt-2 text-slate-500">\(PE = 2E_n\), \(KE = -E_n\)</p>
+                </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-4 text-center text-sm font-mono text-slate-400">
+                <div class="bg-slate-800 p-2 rounded">Freq: \(f \propto Z^2/n^3\)</div>
+                <div class="bg-slate-800 p-2 rounded">Time Period: \(T \propto n^3/Z^2\)</div>
+            </div>
+        </section>
+
+        <!-- 4. HYDROGEN SPECTRUM -->
+        <section class="section-card">
+            <h2 class="text-xl font-bold text-indigo-400 mb-6 flex items-center gap-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Hydrogen Spectrum (Rydberg)
+            </h2>
+            
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <div class="flex-1 w-full">
+                    <div class="bg-indigo-900/20 p-4 rounded-lg border border-indigo-500/50 mb-4 text-center">
+                        $$\frac{1}{\lambda} = \bar{\nu} = R_H Z^2 \left( \frac{1}{n_1^2} - \frac{1}{n_2^2} \right)$$
+                        <p class="text-xs text-indigo-300 mt-2">\(R_H \approx 109677 \text{cm}^{-1}\) | \(1/R_H \approx 912 \mathring{A}\)</p>
+                    </div>
+                    <div class="text-sm text-slate-400 space-y-1">
+                        <p><strong>Max \(\lambda\) (Min E):</strong> \(n_1+1 \to n_1\)</p>
+                        <p><strong>Min \(\lambda\) (Max E):</strong> \(\infty \to n_1\)</p>
+                        <p><strong>Total Lines:</strong> \(\Delta n(\Delta n + 1)/2\)</p>
+                    </div>
+                </div>
+
+                <div class="flex-1 w-full overflow-hidden rounded-lg border border-slate-700">
+                    <table class="w-full text-sm text-center">
+                        <thead class="bg-slate-700 text-slate-200">
+                            <tr><th>Series</th><th>n1</th><th>n2</th><th>Region</th></tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700 bg-slate-800">
+                            <tr><td class="py-2 text-purple-400">Lyman</td><td>1</td><td>2,3...</td><td>UV</td></tr>
+                            <tr><td class="py-2 text-blue-400">Balmer</td><td>2</td><td>3,4...</td><td>Visible</td></tr>
+                            <tr><td class="py-2 text-red-400">Paschen</td><td>3</td><td>4,5...</td><td>Near IR</td></tr>
+                            <tr><td class="py-2 text-red-600">Brackett</td><td>4</td><td>5,6...</td><td>IR</td></tr>
+                            <tr><td class="py-2 text-red-800">Pfund</td><td>5</td><td>6,7...</td><td>Far IR</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. QUANTUM MECHANICS -->
+        <section class="grid md:grid-cols-2 gap-6">
+            <div class="section-card">
+                <h3 class="text-lg font-bold text-teal-400 mb-2">De Broglie (Dual Nature)</h3>
+                $$ \lambda = \frac{h}{mv} = \frac{h}{\sqrt{2mK.E.}} = \frac{h}{\sqrt{2mqV}} $$
+                <div class="mt-2 text-sm text-slate-400">
+                    Electron: \(\lambda \approx \sqrt{150/V} \approx 12.27/\sqrt{V} \, \mathring{A}\)
+                </div>
+            </div>
+            <div class="section-card">
+                <h3 class="text-lg font-bold text-teal-400 mb-2">Heisenberg Uncertainty</h3>
+                $$ \Delta x \cdot \Delta p \geq \frac{h}{4\pi} $$
+                <div class="mt-2 text-center text-sm text-slate-400">
+                    Impossible to know position & momentum accurately simultaneously.
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. QUANTUM NUMBERS -->
+        <section class="section-card">
+            <h2 class="text-2xl font-bold text-pink-500 mb-6">Quantum Numbers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-slate-800 p-4 rounded-lg border-t-4 border-pink-500">
+                    <div class="text-xl font-bold mb-1">n</div>
+                    <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Principal</div>
+                    <p class="text-sm text-slate-300">Shell, Size, Energy</p>
+                    <p class="text-xs text-pink-400 mt-2">Max e-: \(2n^2\)</p>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-lg border-t-4 border-pink-400">
+                    <div class="text-xl font-bold mb-1">l</div>
+                    <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Azimuthal</div>
+                    <p class="text-sm text-slate-300">Subshell (s,p,d,f), Shape</p>
+                    <p class="text-xs text-pink-400 mt-2">\(0\) to \(n-1\)</p>
+                    <p class="text-[10px] text-slate-500 mt-1">L = \(\sqrt{l(l+1)}\frac{h}{2\pi}\)</p>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-lg border-t-4 border-pink-300">
+                    <div class="text-xl font-bold mb-1">m</div>
+                    <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Magnetic</div>
+                    <p class="text-sm text-slate-300">Orientation</p>
+                    <p class="text-xs text-pink-400 mt-2">\(-l \dots 0 \dots +l\)</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Orbitals = \(2l+1\)</p>
+                </div>
+                <div class="bg-slate-800 p-4 rounded-lg border-t-4 border-pink-200">
+                    <div class="text-xl font-bold mb-1">s</div>
+                    <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Spin</div>
+                    <p class="text-sm text-slate-300">Spin Direction</p>
+                    <p class="text-xs text-pink-400 mt-2">\(+1/2, -1/2\)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. SCHRODINGER & GRAPHS (ADVANCED) -->
+        <section class="section-card border-2 border-slate-600">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-orange-400">Schrödinger & Graphs (Advanced)</h2>
+                <span class="bg-orange-900/30 text-orange-300 px-3 py-1 rounded text-xs border border-orange-500/50">HIGH YIELD</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Nodes Info -->
+                <div class="space-y-4">
+                    <div class="bg-slate-900 p-4 rounded-lg">
+                        <h4 class="text-orange-300 font-bold mb-2">Nodes (Zero Probability)</h4>
+                        <ul class="text-sm space-y-2 text-slate-300">
+                            <li class="flex justify-between"><span>Radial (Spherical)</span> <span class="font-mono text-white">n - l - 1</span></li>
+                            <li class="flex justify-between"><span>Angular (Planar)</span> <span class="font-mono text-white">l</span></li>
+                            <li class="flex justify-between border-t border-slate-700 pt-2"><span>Total Nodes</span> <span class="font-mono text-orange-400">n - 1</span></li>
+                        </ul>
+                    </div>
+                    <div class="text-sm text-slate-400">
+                        <p class="mb-2"><strong class="text-white">\(\psi\) (Wave func):</strong> Amplitude. Starts at max for s, 0 for p,d,f.</p>
+                        <p><strong class="text-white">\(\psi^2\) (Prob Density):</strong> Always positive.</p>
+                    </div>
+                </div>
+
+                <!-- Graphs Visualized -->
+                <div class="bg-slate-900 p-4 rounded-lg flex flex-col justify-center items-center">
+                    <h4 class="text-sm text-slate-400 mb-4 w-full text-left">Radial Probability (\(4\pi r^2 R^2\)) vs \(r\)</h4>
+                    
+                    <!-- SVG Graph 1s vs 2s -->
+                    <svg viewBox="0 0 300 150" class="w-full h-auto border-b border-l border-slate-600">
+                        <!-- 1s Curve -->
+                        <path d="M 0,150 Q 30,-50 60,150" fill="none" stroke="#22d3ee" stroke-width="2" />
+                        <text x="40" y="40" fill="#22d3ee" font-size="12">1s</text>
+                        
+                        <!-- 2s Curve -->
+                        <path d="M 0,150 Q 20,100 40,150 Q 90,-80 140,150" fill="none" stroke="#f472b6" stroke-width="2" stroke-dasharray="4" />
+                        <text x="100" y="20" fill="#f472b6" font-size="12">2s</text>
+                        
+                        <!-- Labels -->
+                        <text x="280" y="145" fill="#64748b" font-size="10">r</text>
+                        <text x="5" y="10" fill="#64748b" font-size="10">Prob</text>
+                    </svg>
+                    <div class="mt-2 text-xs text-slate-500 text-center">
+                        <span class="text-cyan-400">1s (1 Peak)</span> vs <span class="text-pink-400">2s (2 Peaks)</span><br>
+                        Distance of max probability increases with n.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. CONFIG & CHEAT SHEET -->
+        <section class="grid md:grid-cols-2 gap-6">
+            <!-- Rules & Exceptions -->
+            <div class="section-card">
+                <h3 class="text-lg font-bold text-lime-400 mb-3">Electronic Config Rules</h3>
+                <ol class="list-decimal list-inside text-sm text-slate-300 space-y-2 mb-4">
+                    <li><strong class="text-white">Aufbau:</strong> Lowest energy first (n+l rule).</li>
+                    <li><strong class="text-white">Pauli:</strong> No 2 e- have same 4 Q.N.</li>
+                    <li><strong class="text-white">Hund:</strong> Pair only after half-filled.</li>
+                </ol>
+                <div class="bg-red-900/20 border border-red-500/30 p-3 rounded">
+                    <p class="text-xs font-bold text-red-300 uppercase mb-1">Crucial Exceptions</p>
+                    <p class="text-sm font-mono text-slate-200">Cr (24): [Ar] 3d<sup>5</sup> 4s<sup>1</sup></p>
+                    <p class="text-sm font-mono text-slate-200">Cu (29): [Ar] 3d<sup>10</sup> 4s<sup>1</sup></p>
+                    <p class="text-xs text-red-400 mt-1 italic">Stability of half/full filled subshells.</p>
+                </div>
+            </div>
+
+            <!-- Quick Cheat Sheet -->
+            <div class="section-card">
+                <h3 class="text-lg font-bold text-sky-400 mb-3">Quick Cheat Sheet</h3>
+                <ul class="text-sm space-y-2">
+                    <li class="bg-slate-800 p-2 rounded border-l-2 border-sky-500">
+                        <span class="text-sky-300 font-bold">Isoelectronic:</span> Same e- count.<br>
+                        <span class="text-xs text-slate-500">Size decreases as Z increases.</span>
+                    </li>
+                    <li class="bg-slate-800 p-2 rounded border-l-2 border-sky-500">
+                        <span class="text-sky-300 font-bold">Isotopes:</span> Same Z, diff A.
+                    </li>
+                    <li class="bg-slate-800 p-2 rounded border-l-2 border-sky-500">
+                        <span class="text-sky-300 font-bold">Magnetic Moment:</span><br>
+                        \(\mu = \sqrt{n(n+2)} \, \text{B.M.}\) (n = unpaired e-)
+                    </li>
+                    <li class="bg-slate-800 p-2 rounded border-l-2 border-sky-500">
+                        <span class="text-sky-300 font-bold">Dist of Approach:</span><br>
+                        \(r_{min} \propto 1/K.E.\)
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center text-slate-600 text-sm pb-8">
+            <p>Generated by Gemini • Good Luck with JEE!</p>
+        </footer>
+
+    </div>
+</body>
+</html>

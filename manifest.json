@@ -9,7 +9,14 @@
   },
   "Mathematics": {},
   "Organic Chemistry": {},
-  "Physical Chemistry": {},
+  "Physical Chemistry": {
+    "Liquid Solutions": [
+      {
+        "name": "WebNotes.html",
+        "type": "WebNotes"
+      }
+    ]
+  },
   "Physics": {
     "AC": [
       {
