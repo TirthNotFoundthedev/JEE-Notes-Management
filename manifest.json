@@ -5,6 +5,28 @@
         "name": "Webnotes.html",
         "type": "Webnotes"
       }
+    ],
+    "P Block": [
+      {
+        "name": "Group 13 Webnotes.html",
+        "type": "Webnotes"
+      },
+      {
+        "name": "Group 14 Webnotes.html",
+        "type": "Webnotes"
+      },
+      {
+        "name": "Group 15 Webnotes.html",
+        "type": "Webnotes"
+      },
+      {
+        "name": "Group 16 Webnotes.html",
+        "type": "Webnotes"
+      },
+      {
+        "name": "Group 17 Webnotes.html",
+        "type": "Webnotes"
+      }
     ]
   },
   "Mathematics": {},
@@ -45,7 +67,7 @@
     "Rotational Motion": [
       {
         "name": "All MOI formulas.pdf",
-        "type": "All MOI formulas"
+        "type": "Formula Sheet"
       },
       {
         "name": "Super Short Notes.pdf",

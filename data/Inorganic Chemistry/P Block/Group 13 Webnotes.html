@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Notes: Group 13 (Boron Family)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-pink: #f472b6;
+            --accent-green: #4ade80;
+            --accent-yellow: #facc15;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        .reaction-box {
+            background: #0f172a;
+            border-left: 4px solid var(--accent-pink);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .highlight-keyword {
+            color: var(--accent-yellow);
+            font-weight: bold;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Banana Bond CSS Visualization */
+        .boron-atom {
+            width: 40px; height: 40px; background: var(--accent-pink); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; z-index: 2;
+        }
+        .hydrogen-atom {
+            width: 25px; height: 25px; background: var(--accent-blue); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: black; font-weight: bold; z-index: 2;
+        }
+        .bridge-bond {
+            position: absolute; width: 120px; height: 60px;
+            border: 2px dashed rgba(255,255,255,0.4);
+            border-radius: 50%; z-index: 1;
+        }
+        .chem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <!-- HERO HEADER -->
+    <header class="text-center mb-12">
+        <div class="inline-block px-4 py-1 mb-4 rounded-full bg-blue-900/50 text-blue-300 text-sm font-bold tracking-wider uppercase">JEE Mains & Advanced Notes</div>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+            GROUP <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 neon-text">13</span>
+        </h1>
+        <p class="text-xl text-gray-400">The Boron Family • <span class="font-mono text-accent-pink">ns² np¹</span></p>
+        <div class="mt-6 flex justify-center gap-4 text-sm font-mono text-gray-500">
+            <span>B (Boron)</span> • <span>Al (Aluminum)</span> • <span>Ga (Gallium)</span> • <span>In (Indium)</span> • <span>Tl (Thallium)</span>
+        </div>
+    </header>
+
+    <!-- SECTION 1: ATOMIC TRENDS & ANOMALIES -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-blue-500 flex items-center justify-center text-sm">1</span>
+            Trends & Anomalies
+        </h2>
+        
+        <div class="chem-grid">
+            <!-- Atomic Radius Card -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-blue mb-2">Atomic Radius Anomaly</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Expected to increase down the group, but <strong class="text-red-400">Gallium is smaller than Aluminum</strong>.
+                </p>
+                <div class="chart-wrapper">
+                    <canvas id="radiusChart"></canvas>
+                </div>
+                <div class="mt-4 bg-red-500/10 border border-red-500/20 p-3 rounded text-sm">
+                    <strong class="text-red-400">Why?</strong> Poor shielding of d-electrons in Gallium (Transition Contraction) pulls the outer shell closer.
+                </div>
+            </div>
+
+            <!-- Ionization Enthalpy Card -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-pink mb-2">Ionization Enthalpy (IE₁)</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Does NOT decrease regularly. It follows a <strong class="text-accent-yellow">"W" shape</strong> pattern.
+                </p>
+                <div class="chart-wrapper">
+                    <canvas id="ieChart"></canvas>
+                </div>
+                <div class="mt-4 text-xs font-mono text-gray-400">
+                    Order: <span class="text-white">B > Tl > Ga > Al > In</span>
+                    <br>
+                    <span class="text-accent-pink">*Tl is very high due to Lanthanoid Contraction (4f shielding).</span>
+                </div>
+            </div>
+
+            <!-- Oxidation States Card -->
+            <div class="glass-panel p-6 md:col-span-2">
+                <h3 class="text-xl font-bold text-accent-green mb-4">Oxidation States & Inert Pair Effect</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li><strong class="text-white">Common States:</strong> +3 and +1.</li>
+                            <li><strong class="text-white">Stability of +1:</strong> Increases down the group.</li>
+                            <li><strong class="text-white">Stability of +3:</strong> Decreases down the group.</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-gray-800 rounded border border-gray-700">
+                            <div class="text-center font-bold text-lg mb-2">Stability Order</div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-accent-blue">Al³⁺ > Ga³⁺ > In³⁺ > Tl³⁺</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm mt-2">
+                                <span class="text-accent-green">Tl⁺ > In⁺ > Ga⁺ > Al⁺</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-2">Consequences:</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-accent-yellow">➤</span>
+                                <span><strong>TlCl₃ is unstable</strong> compared to TlCl.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-accent-yellow">➤</span>
+                                <span><strong>Tl³⁺ is a strong Oxidizing Agent</strong> (wants to become Tl⁺).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-accent-yellow">➤</span>
+                                <span><strong>Al⁺ is a strong Reducing Agent</strong> (wants to become Al³⁺).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: IMPORTANT COMPOUNDS -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-purple-500 flex items-center justify-center text-sm">2</span>
+            Compounds Deep Dive
+        </h2>
+
+        <!-- DIBORANE -->
+        <div class="glass-panel p-6 mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 font-bold text-9xl text-white select-none">B₂H₆</div>
+            <h3 class="text-2xl font-bold text-white mb-6">Diborane (B₂H₆)</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Structure Visual -->
+                <div>
+                    <h4 class="text-sm font-bold text-accent-blue uppercase tracking-widest mb-4">Structure: Banana Bond</h4>
+                    
+                    <!-- CSS Drawing of Diborane -->
+                    <div class="relative h-48 bg-gray-900 rounded-xl flex items-center justify-center border border-gray-700 mb-4">
+                        <!-- Bridge Bonds (Top/Bottom) -->
+                        <div class="bridge-bond" style="top: 25%; border-bottom: none;"></div>
+                        <div class="bridge-bond" style="bottom: 25%; border-top: none;"></div>
+                        
+                        <!-- Atoms -->
+                        <div class="flex items-center gap-12 z-10 relative">
+                            <!-- Left B -->
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="hydrogen-atom" style="margin-bottom: 2px;">Ht</div>
+                                <div class="boron-atom">B</div>
+                                <div class="hydrogen-atom" style="margin-top: 2px;">Ht</div>
+                            </div>
+                            
+                            <!-- Bridge Hydrogens -->
+                            <div class="flex flex-col gap-12 absolute left-1/2 -translate-x-1/2">
+                                <div class="hydrogen-atom bg-green-400">Hb</div>
+                                <div class="hydrogen-atom bg-green-400">Hb</div>
+                            </div>
+
+                            <!-- Right B -->
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="hydrogen-atom" style="margin-bottom: 2px;">Ht</div>
+                                <div class="boron-atom">B</div>
+                                <div class="hydrogen-atom" style="margin-top: 2px;">Ht</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <ul class="text-sm text-gray-400 list-disc pl-4 space-y-1">
+                        <li><strong class="text-white">4 Terminal H:</strong> Normal 2c-2e bonds. Coplanar.</li>
+                        <li><strong class="text-white">2 Bridge H:</strong> <span class="text-accent-green">3c-2e bonds</span> (Banana bonds). Perpendicular to plane.</li>
+                        <li><strong>Hybridization:</strong> Boron is sp³.</li>
+                        <li><strong>Bond Angles:</strong> Ht-B-Ht (>120°) > Hb-B-Hb (97°).</li>
+                    </ul>
+                </div>
+
+                <!-- Reactions -->
+                <div>
+                    <h4 class="text-sm font-bold text-accent-pink uppercase tracking-widest mb-4">Key Reactions</h4>
+                    
+                    <div class="mb-4">
+                        <span class="text-xs text-gray-500 uppercase">Preparation</span>
+                        <div class="reaction-box">
+                            4BF₃ + 3LiAlH₄ → 2B₂H₆ + 3LiF + 3AlF₃
+                        </div>
+                        <div class="reaction-box">
+                            2NaBH₄ + I₂ → B₂H₆ + 2NaI + H₂
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <span class="text-xs text-gray-500 uppercase">Properties</span>
+                        <div class="reaction-box">
+                            <span class="text-gray-500">// Hydrolysis (Instant)</span><br>
+                            B₂H₆ + 6H₂O → 2H₃BO₃ + 6H₂
+                        </div>
+                        <div class="reaction-box">
+                            <span class="text-gray-500">// With Ammonia (The Tricky One)</span><br>
+                            1. Low T: [BH₂(NH₃)₂]⁺[BH₄]⁻<br>
+                            2. High T: <span class="text-accent-yellow">B₃N₃H₆ (Borazine)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BORIC ACID & BORAX -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Boric Acid -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-white mb-2">Boric Acid (H₃BO₃)</h3>
+                <div class="bg-gray-800/50 p-3 rounded mb-4">
+                    <p class="text-sm text-gray-300">
+                        Weak, Monobasic Lewis Acid.<br>
+                        <span class="text-xs text-gray-500 italic">It doesn't give H⁺, it accepts OH⁻.</span>
+                    </p>
+                    <div class="font-mono text-xs text-accent-blue mt-2">
+                        B(OH)₃ + 2H₂O ⇌ [B(OH)₄]⁻ + H₃O⁺
+                    </div>
+                </div>
+                
+                <h4 class="text-sm font-bold text-gray-400 mt-4">Action of Heat</h4>
+                <div class="flex items-center text-xs font-mono mt-2 overflow-x-auto whitespace-nowrap">
+                    <span class="text-white">H₃BO₃</span>
+                    <span class="mx-2 text-gray-500">→(370K)→</span>
+                    <span class="text-accent-yellow">HBO₂</span>
+                    <span class="mx-2 text-gray-500">→(Red Heat)→</span>
+                    <span class="text-accent-pink">B₂O₃</span>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Orthoboric → Metaboric → Boric Anhydride</p>
+            </div>
+
+            <!-- Borax -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-white mb-2">Borax</h3>
+                <p class="font-mono text-accent-yellow mb-4 text-sm">Na₂B₄O₇ • 10H₂O</p>
+                
+                <h4 class="text-sm font-bold text-gray-400">Borax Bead Test</h4>
+                <p class="text-sm text-gray-300 mb-2">Used to identify transition metals.</p>
+                <div class="bg-black p-3 rounded border border-gray-700">
+                    <div class="flex justify-between items-center text-sm border-b border-gray-800 pb-2 mb-2">
+                        <span>Cobalt (Co)</span>
+                        <span class="text-blue-500 font-bold">Blue Bead</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm border-b border-gray-800 pb-2 mb-2">
+                        <span>Chromium (Cr)</span>
+                        <span class="text-green-500 font-bold">Green Bead</span>
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">Chemistry: Formation of metal metaborates.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-gray-500 text-sm pb-8 border-t border-gray-800 pt-8">
+        <p>Master these, and you master Group 13. Next up: Group 14.</p>
+    </footer>
+
+    <!-- CHART SCRIPTS -->
+    <script>
+        // Common Options
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#1e293b';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // 1. Atomic Radius Chart
+        new Chart(document.getElementById('radiusChart'), {
+            type: 'line',
+            data: {
+                labels: ['Boron', 'Aluminum', 'Gallium', 'Indium', 'Thallium'],
+                datasets: [{
+                    label: 'Atomic Radius (pm)',
+                    data: [85, 143, 135, 167, 170], // Note the drop at Ga
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                    pointBackgroundColor: ['#38bdf8', '#38bdf8', '#ef4444', '#38bdf8', '#38bdf8'], // Red for Ga
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                label += context.raw + ' pm';
+                                if(context.label === 'Gallium') label += ' (Smaller than Al!)';
+                                return label;
+                            },
+                            title: function(tooltipItems) {
+                                return tooltipItems[0].label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { title: { display: true, text: 'Radius (pm)' }, grid: { color: '#1e293b' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Ionization Enthalpy Chart
+        new Chart(document.getElementById('ieChart'), {
+            type: 'line',
+            data: {
+                labels: ['Boron', 'Aluminum', 'Gallium', 'Indium', 'Thallium'],
+                datasets: [{
+                    label: 'Ionization Enthalpy (kJ/mol)',
+                    data: [801, 577, 579, 558, 589],
+                    borderColor: '#f472b6',
+                    backgroundColor: 'rgba(244, 114, 182, 0.1)',
+                    pointBackgroundColor: '#f472b6',
+                    pointRadius: 6,
+                    tension: 0.3, // Smoother line to show the W shape
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                         callbacks: {
+                            title: function(tooltipItems) {
+                                return tooltipItems[0].label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { title: { display: true, text: 'IE (kJ/mol)' }, grid: { color: '#1e293b' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

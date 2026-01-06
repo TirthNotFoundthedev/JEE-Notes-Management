@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Notes: Group 14 (Carbon Family)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent-purple: #a855f7;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .reaction-box {
+            background: #0f172a;
+            border-left: 4px solid var(--accent-cyan);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .highlight-keyword {
+            color: var(--accent-amber);
+            font-weight: bold;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Graphite Layer Visualization (CSS only) */
+        .layer-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        .graphite-layer {
+            width: 100px;
+            height: 40px;
+            border: 2px solid var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.1);
+            transform: skew(-20deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--accent-cyan);
+        }
+        .vanderwaals {
+            height: 15px;
+            border-left: 2px dashed rgba(255,255,255,0.3);
+        }
+
+        .chem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <!-- HERO HEADER -->
+    <header class="text-center mb-12">
+        <div class="inline-block px-4 py-1 mb-4 rounded-full bg-purple-900/50 text-purple-300 text-sm font-bold tracking-wider uppercase">JEE Mains & Advanced Notes</div>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+            GROUP <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-500 neon-text">14</span>
+        </h1>
+        <p class="text-xl text-gray-400">The Carbon Family • <span class="font-mono text-accent-cyan">ns² np²</span></p>
+        <div class="mt-6 flex justify-center gap-4 text-sm font-mono text-gray-500">
+            <span>C (Carbon)</span> • <span>Si (Silicon)</span> • <span>Ge (Germanium)</span> • <span>Sn (Tin)</span> • <span>Pb (Lead)</span>
+        </div>
+    </header>
+
+    <!-- SECTION 1: TRENDS & ANOMALIES -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-purple-500 flex items-center justify-center text-sm">1</span>
+            Trends & The Carbon Anomaly
+        </h2>
+        
+        <div class="chem-grid">
+            <!-- Catenation Card -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-amber mb-2">Catenation: The Carbon King</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Self-linking property. Carbon dominates because the <strong class="text-white">C-C bond is insanely strong</strong>.
+                </p>
+                <div class="chart-wrapper">
+                    <canvas id="catenationChart"></canvas>
+                </div>
+                <div class="mt-4 text-xs font-mono text-gray-400 text-center">
+                    Order: <span class="text-white">C >> Si > Ge ≈ Sn</span> (Pb has none)
+                </div>
+            </div>
+
+            <!-- Oxidation States Card -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-rose mb-2">Inert Pair Effect: The Sn/Pb War</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Heavier elements prefer +2 over +4 due to reluctance of s-electrons.
+                </p>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700 space-y-4">
+                    <div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                        <span class="text-white font-bold">Carbon / Silicon</span>
+                        <span class="text-green-400 font-mono">+4 Stable</span>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white font-bold">Tin (Sn)</span>
+                            <span class="text-yellow-400 font-mono">+2 is Reducing Agent</span>
+                        </div>
+                        <p class="text-xs text-gray-500 italic">Sn²⁺ wants to become Sn⁴⁺</p>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white font-bold">Lead (Pb)</span>
+                            <span class="text-red-400 font-mono">+4 is Oxidizing Agent</span>
+                        </div>
+                        <p class="text-xs text-gray-500 italic">Pb⁴⁺ wants to become Pb²⁺</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Anomalous Behavior Card -->
+            <div class="glass-panel p-6 md:col-span-2">
+                <h3 class="text-xl font-bold text-accent-cyan mb-2">Why is Carbon Special?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <span class="text-accent-purple">●</span> Small size & High Electronegativity.
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-accent-purple">●</span> <strong class="text-white">pπ-pπ bonding:</strong> Forms multiple bonds (C=C, C≡C, C=O). Heavier elements (Si, Ge) fail to do this effectively.
+                        </li>
+                    </ul>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li class="flex items-center gap-2">
+                            <span class="text-accent-purple">●</span> <strong class="text-white">Max Covalency = 4:</strong> No d-orbitals. Cannot expand octet (unlike SiF₆²⁻).
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-accent-purple">●</span> Hardest substance (Diamond) & Good conductor (Graphite).
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: ALLOTROPES OF CARBON -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-cyan-600 flex items-center justify-center text-sm">2</span>
+            The Big Three: Allotropes
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Diamond -->
+            <div class="glass-panel p-6 border-t-4 border-t-blue-400">
+                <div class="text-4xl mb-4">💎</div>
+                <h3 class="text-xl font-bold text-white mb-2">Diamond</h3>
+                <ul class="text-sm text-gray-400 space-y-2">
+                    <li>• <span class="text-accent-cyan">sp³ Hybridized</span></li>
+                    <li>• Tetrahedral 3D Network</li>
+                    <li>• Hardest natural substance</li>
+                    <li>• <strong class="text-red-400">Insulator</strong> (No free e⁻)</li>
+                    <li>• C-C bond length: 154 pm</li>
+                </ul>
+            </div>
+
+            <!-- Graphite -->
+            <div class="glass-panel p-6 border-t-4 border-t-gray-400">
+                <div class="flex justify-between items-start">
+                    <div class="text-4xl mb-4">✏️</div>
+                    <!-- Mini visual of layers -->
+                    <div class="layer-stack">
+                        <div class="graphite-layer">Layer A</div>
+                        <div class="vanderwaals"></div>
+                        <div class="graphite-layer">Layer B</div>
+                    </div>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">Graphite</h3>
+                <ul class="text-sm text-gray-400 space-y-2">
+                    <li>• <span class="text-accent-cyan">sp² Hybridized</span></li>
+                    <li>• Hexagonal Sheets (Layered)</li>
+                    <li>• <strong class="text-green-400">Conductor</strong> (Free π-electrons)</li>
+                    <li>• Lubricant (Layers slide)</li>
+                    <li>• Thermodynamically most stable form</li>
+                </ul>
+            </div>
+
+            <!-- Fullerenes -->
+            <div class="glass-panel p-6 border-t-4 border-t-purple-400">
+                <div class="text-4xl mb-4">⚽</div>
+                <h3 class="text-xl font-bold text-white mb-2">Fullerenes (C₆₀)</h3>
+                <ul class="text-sm text-gray-400 space-y-2">
+                    <li>• <span class="text-accent-cyan">sp² Hybridized</span></li>
+                    <li>• Cage-like (Buckyball)</li>
+                    <li>• 12 Pentagons, 20 Hexagons</li>
+                    <li>• Purest form (No dangling bonds)</li>
+                    <li>• "Dangling bonds" saturated</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: COMPOUNDS & REACTIONS -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-amber-600 flex items-center justify-center text-sm">3</span>
+            Compounds Deep Dive
+        </h2>
+
+        <!-- OXIDES -->
+        <div class="glass-panel p-6 mb-8">
+            <h3 class="text-xl font-bold text-white mb-6">Oxides: The Breath of Life & Death</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- CO -->
+                <div>
+                    <h4 class="text-lg font-bold text-accent-rose mb-2">Carbon Monoxide (CO)</h4>
+                    <span class="text-xs bg-red-900 text-red-200 px-2 py-1 rounded">Poisonous</span>
+                    <span class="text-xs bg-gray-700 text-gray-200 px-2 py-1 rounded">Neutral Oxide</span>
+                    
+                    <div class="mt-4">
+                        <span class="text-xs text-gray-500 uppercase">Preparation</span>
+                        <div class="reaction-box">
+                            HCOOH <span class="text-accent-amber">→(conc H₂SO₄)→</span> CO + H₂O
+                        </div>
+                        <div class="reaction-box">
+                            C + H₂O <span class="text-accent-amber">→(473-1273K)→</span> CO + H₂ (Water Gas)
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">
+                        *Complexes with hemoglobin 300x stronger than Oxygen.
+                    </p>
+                </div>
+
+                <!-- CO2 -->
+                <div>
+                    <h4 class="text-lg font-bold text-accent-cyan mb-2">Carbon Dioxide (CO₂)</h4>
+                    <span class="text-xs bg-green-900 text-green-200 px-2 py-1 rounded">Greenhouse Gas</span>
+                    <span class="text-xs bg-gray-700 text-gray-200 px-2 py-1 rounded">Acidic Oxide</span>
+                    
+                    <div class="mt-4">
+                        <span class="text-xs text-gray-500 uppercase">Structure</span>
+                        <div class="font-mono text-white bg-gray-800 p-2 rounded text-center">
+                            O = C = O (Linear, sp)
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <span class="text-xs text-gray-500 uppercase">Resonance</span>
+                        <p class="text-xs text-gray-400">C-O bond lengths are equal due to resonance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SILICON COMPOUNDS -->
+        <div class="glass-panel p-6">
+            <h3 class="text-xl font-bold text-white mb-6">The Silicon World</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Silicones -->
+                <div class="bg-gray-800/50 p-4 rounded border border-gray-700">
+                    <h4 class="text-accent-purple font-bold mb-2">1. Silicones</h4>
+                    <p class="text-xs text-gray-300 mb-3">Organosilicon polymers. Water repellent (hydrophobic R groups).</p>
+                    <div class="font-mono text-xs text-center text-accent-cyan bg-gray-900 p-2 rounded">
+                        -(R₂SiO)- repeating unit
+                    </div>
+                    <p class="text-[10px] text-gray-500 mt-2">Uses: Sealants, Greases, Cosmetic implants.</p>
+                </div>
+
+                <!-- Silicates -->
+                <div class="bg-gray-800/50 p-4 rounded border border-gray-700">
+                    <h4 class="text-accent-purple font-bold mb-2">2. Silicates</h4>
+                    <p class="text-xs text-gray-300 mb-3">Building block: <strong class="text-white">SiO₄⁴⁻</strong> Tetrahedron.</p>
+                    <ul class="text-xs text-gray-400 list-disc pl-4 space-y-1">
+                        <li>Orthosilicates (Discrete)</li>
+                        <li>Pyrosilicates (2 units)</li>
+                        <li>Chain / Sheet / 3D</li>
+                        <li>Ex: Feldspar, Zeolites, Mica</li>
+                    </ul>
+                </div>
+
+                <!-- Zeolites -->
+                <div class="bg-gray-800/50 p-4 rounded border border-gray-700">
+                    <h4 class="text-accent-purple font-bold mb-2">3. Zeolites</h4>
+                    <p class="text-xs text-gray-300 mb-3">Aluminosilicates with cage structures. Shape-selective catalysts.</p>
+                    <div class="bg-gray-900 p-2 rounded border-l-2 border-accent-amber">
+                        <span class="text-xs text-white font-bold">ZSM-5</span>
+                        <p class="text-[10px] text-gray-400">Converts Alcohols → Gasoline</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-gray-500 text-sm pb-8 border-t border-gray-800 pt-8">
+        <p>Carbon is the backbone of life. Silicon is the backbone of tech. Next up: Group 15.</p>
+    </footer>
+
+    <!-- CHART SCRIPTS -->
+    <script>
+        // Common Options
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#1e293b';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // 1. Catenation / Bond Energy Chart
+        new Chart(document.getElementById('catenationChart'), {
+            type: 'bar',
+            data: {
+                labels: ['C-C', 'Si-Si', 'Ge-Ge', 'Sn-Sn'],
+                datasets: [{
+                    label: 'Bond Enthalpy (kJ/mol)',
+                    data: [348, 297, 260, 240], // Approx values
+                    backgroundColor: [
+                        'rgba(168, 85, 247, 0.8)', // Purple for C
+                        'rgba(6, 182, 212, 0.4)',
+                        'rgba(6, 182, 212, 0.3)',
+                        'rgba(6, 182, 212, 0.2)'
+                    ],
+                    borderRadius: 4,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal bar chart
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw + ' kJ/mol (Stronger = More Catenation)';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { title: { display: true, text: 'Bond Enthalpy (kJ/mol)' }, grid: { color: '#1e293b' } },
+                    y: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

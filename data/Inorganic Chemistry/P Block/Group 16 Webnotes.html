@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Notes: Group 16 (Oxygen Family)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-dark: #0f172a; /* Slate 900 */
+            --card-bg: #1e293b; /* Slate 800 */
+            --accent-red: #f43f5e; /* Rose 500 */
+            --accent-orange: #f97316; /* Orange 500 */
+            --accent-yellow: #eab308; /* Yellow 500 */
+            --accent-purple: #a855f7;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+        }
+
+        .reaction-box {
+            background: #0f172a;
+            border-left: 4px solid var(--accent-orange);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .chem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .s8-canvas-container {
+            width: 100%;
+            height: 250px;
+            background: #111827;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #374151;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <!-- HERO HEADER -->
+    <header class="text-center mb-12">
+        <div class="inline-block px-4 py-1 mb-4 rounded-full bg-red-900/50 text-red-300 text-sm font-bold tracking-wider uppercase">JEE Mains & Advanced Notes</div>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+            GROUP <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 neon-text">16</span>
+        </h1>
+        <p class="text-xl text-gray-400">The Chalcogens • <span class="font-mono text-accent-orange">ns² np⁴</span></p>
+        <div class="mt-6 flex justify-center gap-4 text-sm font-mono text-gray-500">
+            <span>O (Oxygen)</span> • <span>S (Sulphur)</span> • <span>Se (Selenium)</span> • <span>Te (Tellurium)</span> • <span>Po (Polonium)</span>
+        </div>
+    </header>
+
+    <!-- SECTION 1: TRENDS & ANOMALIES -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-red-600 flex items-center justify-center text-sm">1</span>
+            Trends: The Oxygen Anomaly
+        </h2>
+        
+        <div class="chem-grid">
+            <!-- Electron Gain Enthalpy -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-orange mb-2">Electron Gain Enthalpy (ΔegH)</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Oxygen has <strong class="text-white">LESS negative</strong> ΔegH than Sulphur.
+                </p>
+                <div class="chart-wrapper">
+                    <canvas id="egeChart"></canvas>
+                </div>
+                <div class="mt-4 bg-red-500/10 border border-red-500/20 p-3 rounded text-sm text-center">
+                    <strong class="text-red-400">Why?</strong> Small size of Oxygen causes inter-electronic repulsion in the compact 2p subshell.
+                </div>
+            </div>
+
+            <!-- Hydride Boiling Points -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-yellow mb-2">Hydride Boiling Points</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Why is water liquid but H₂S a gas?
+                </p>
+                <div class="chart-wrapper">
+                    <canvas id="bpChart"></canvas>
+                </div>
+                <div class="mt-4 text-xs font-mono text-gray-400 text-center">
+                    Order: <span class="text-white">H₂S < H₂Se < H₂Te < H₂O</span>
+                    <br><span class="text-accent-yellow">(Massive H-Bonding in Water)</span>
+                </div>
+            </div>
+
+            <!-- Catenation & S8 -->
+            <div class="glass-panel p-6 md:col-span-2">
+                <h3 class="text-xl font-bold text-white mb-4">The Solid State: Sulphur's Crown</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li><strong class="text-accent-red">Oxygen (O₂):</strong> Stable multiple bonds (pπ-pπ). Gas.</li>
+                            <li><strong class="text-accent-yellow">Sulphur (S₈):</strong> No pπ-pπ bonds. Forms S-S single bonds (Catenation). Solid.</li>
+                        </ul>
+                        <div class="mt-4 bg-gray-800 p-3 rounded border-l-4 border-yellow-500">
+                            <h4 class="font-bold text-white text-sm">Rhombic vs Monoclinic</h4>
+                            <p class="text-xs text-gray-400 mt-1">Transition Temp: 369K</p>
+                            <p class="text-xs text-gray-400">Below 369K: <span class="text-yellow-200">Rhombic (α)</span> stable.</p>
+                            <p class="text-xs text-gray-400">Above 369K: <span class="text-yellow-200">Monoclinic (β)</span> stable.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-center text-xs font-mono text-accent-yellow mb-2">S₈ Puckered Ring Structure (Inverted Crown)</h4>
+                        <!-- Canvas for S8 Visualization -->
+                        <div class="s8-canvas-container">
+                            <canvas id="s8Canvas" width="300" height="200"></canvas>
+                        </div>
+                        <p class="text-center text-[10px] text-gray-500 mt-2">Atoms arranged in a puckered ring</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: COMPOUNDS & REACTIONS -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-orange-600 flex items-center justify-center text-sm">2</span>
+            Compounds Deep Dive
+        </h2>
+
+        <!-- OZONE & SO2 -->
+        <div class="glass-panel p-6 mb-8 border-t-4 border-t-blue-400">
+            <h3 class="text-xl font-bold text-white mb-2">A. Ozone (O₃)</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="mb-4">
+                        <span class="text-xs text-gray-500 uppercase font-bold text-accent-blue">Preparation</span>
+                        <div class="reaction-box">
+                            Silent electric discharge on O₂
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <span class="text-xs text-gray-500 uppercase font-bold text-accent-blue">Properties</span>
+                        <p class="text-sm text-gray-300">Pale blue gas. Powerful oxidizing agent.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <h4 class="text-sm font-bold text-white mb-2">Tailing of Mercury</h4>
+                    <p class="text-xs text-gray-400 mb-2">Hg loses meniscus in contact with ozone.</p>
+                    <div class="reaction-box border-l-gray-400 text-xs">
+                        2Hg + O₃ → Hg₂O + O₂
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SULPHURIC ACID -->
+        <div class="glass-panel p-6 mb-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-bold text-white">H₂SO₄</div>
+            <h3 class="text-2xl font-bold text-white mb-4">B. Sulphuric Acid</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Contact Process -->
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h4 class="font-bold text-accent-yellow mb-2">Contact Process</h4>
+                    <div class="space-y-4 text-sm font-mono text-gray-300">
+                        <div>
+                            <span class="text-accent-orange block text-xs mb-1">Key Step:</span>
+                            <div class="bg-gray-900 p-2 rounded border-l-2 border-accent-orange">
+                                2SO₂ + O₂ <span class="text-accent-yellow">-(V₂O₅)→</span> 2SO₃
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-accent-orange block text-xs mb-1">Oleum Formation:</span>
+                            <div class="bg-gray-900 p-2 rounded border-l-2 border-accent-orange">
+                                SO₃ + H₂SO₄ → H₂S₂O₇ (Oleum)
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-accent-orange block text-xs mb-1">Dilution:</span>
+                            <div class="bg-gray-900 p-2 rounded border-l-2 border-accent-orange">
+                                Oleum + Water → H₂SO₄
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Properties -->
+                <div class="space-y-4">
+                    <div class="bg-gray-900 p-3 rounded border-l-4 border-white">
+                        <h5 class="font-bold text-white text-sm">Strong Dehydrating Agent</h5>
+                        <p class="text-xs text-gray-400">Chars sugar to black carbon.</p>
+                    </div>
+                    <div class="bg-gray-900 p-3 rounded border-l-4 border-red-500">
+                        <h5 class="font-bold text-white text-sm">Strong Oxidizing Agent</h5>
+                        <p class="text-xs text-gray-400">(Hot conc.)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OXOACIDS STRUCTURES -->
+        <h3 class="text-xl font-bold text-white mb-4 pl-2 border-l-4 border-accent-purple">C. Oxoacids of Sulphur</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="glass-panel p-4">
+                <h4 class="font-bold text-gray-200">Peroxodisulphuric Acid</h4>
+                <div class="text-xs text-accent-yellow font-mono mb-2">H₂S₂O₈ (Marshall's Acid)</div>
+                <div class="bg-gray-900 p-2 rounded text-center text-xs font-mono text-accent-red border border-red-900">
+                    Contains Peroxide Linkage
+                </div>
+            </div>
+            <div class="glass-panel p-4">
+                <h4 class="font-bold text-gray-200">Peroxomonosulphuric Acid</h4>
+                <div class="text-xs text-accent-yellow font-mono mb-2">H₂SO₅ (Caro's Acid)</div>
+                <div class="bg-gray-900 p-2 rounded text-center text-xs font-mono text-accent-orange border border-orange-900">
+                     Contains Peroxide Linkage
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE PARADOX ZONE -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-purple-600 flex items-center justify-center text-sm">3</span>
+            The "Gotcha" Zone
+        </h2>
+
+        <div class="glass-panel p-6 border border-purple-900/50">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- S2 vs O2 -->
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition"></div>
+                    <div class="relative bg-gray-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-white mb-2">Is S₂ Paramagnetic?</h4>
+                        <p class="text-sm text-gray-300 mb-2">
+                            <span class="text-green-400 font-bold">YES.</span> Like O₂, S₂ (in vapor phase) has unpaired electrons in antibonding π* orbitals.
+                        </p>
+                        <p class="text-xs text-gray-500">Usually S exists as S₈ (Diamagnetic), but at high temp (>1000K), S₂ dominates.</p>
+                    </div>
+                </div>
+
+                <!-- SF6 Inertness -->
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-green-600 rounded-lg blur opacity-25 group-hover:opacity-75 transition"></div>
+                    <div class="relative bg-gray-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-white mb-2">Why is SF₆ so Inert?</h4>
+                        <p class="text-sm text-gray-300 mb-2">
+                            Ideally, S has +6 oxidation state (high attraction), but it doesn't react.
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            <strong>Reason:</strong> <span class="text-accent-yellow">Steric Hindrance.</span> The 6 Fluorine atoms protect the Sulphur atom from attack.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-gray-500 text-sm pb-8 border-t border-gray-800 pt-8">
+        <p>Oxygen breathes life, Sulphur smells like rotten eggs. Balance is key. Next up: Group 17.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- 1. S8 CROWN VISUALIZATION (CANVAS) ---
+        const canvas = document.getElementById('s8Canvas');
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+
+        // Atom Properties
+        const atomRadius = 12;
+        const bondPadding = 3; // Gap between bond and atom
+        
+        // Coordinates for the Inverted Crown (M shape)
+        // Previous W coords were around Y centers. We flip Highs and Lows.
+        const atoms = [
+            { x: 50, y: 120, label: "S" },   // 1 (Low Left)
+            { x: 80, y: 50, label: "S" },    // 2 (High Left)
+            { x: 110, y: 130, label: "S" },  // 3 (Low Mid)
+            { x: 150, y: 30, label: "S" },   // 4 (High Front - Peak)
+            { x: 190, y: 130, label: "S" },  // 5 (Low Mid)
+            { x: 220, y: 50, label: "S" },   // 6 (High Right)
+            { x: 250, y: 120, label: "S" },  // 7 (Low Right)
+            { x: 150, y: 170, label: "S" }   // 8 (Low Back - Bottom trough)
+        ];
+
+        // Define Connections (indices)
+        const connections = [
+            [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0]
+        ];
+
+        // Function to draw bond with gap
+        function drawBond(idx1, idx2) {
+            const p1 = atoms[idx1];
+            const p2 = atoms[idx2];
+
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            
+            if (dist === 0) return;
+
+            const unitX = dx / dist;
+            const unitY = dy / dist;
+
+            // Start and End points accounting for radius + padding (GAP)
+            const startX = p1.x + unitX * (atomRadius + bondPadding);
+            const startY = p1.y + unitY * (atomRadius + bondPadding);
+            const endX = p2.x - unitX * (atomRadius + bondPadding);
+            const endY = p2.y - unitY * (atomRadius + bondPadding);
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(endX, endY);
+            ctx.strokeStyle = '#eab308'; // Bond Color
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+
+        // Draw Bonds First
+        connections.forEach(pair => drawBond(pair[0], pair[1]));
+
+        // Draw Atoms On Top
+        atoms.forEach(atom => {
+            // Circle
+            ctx.beginPath();
+            ctx.arc(atom.x, atom.y, atomRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = '#facc15'; // Yellow-400
+            ctx.fill();
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Label
+            ctx.fillStyle = '#000';
+            ctx.font = 'bold 10px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(atom.label, atom.x, atom.y + 1);
+        });
+
+
+        // --- 2. CHARTS ---
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#1e293b';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // Electron Gain Enthalpy (Magnitude)
+        new Chart(document.getElementById('egeChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Oxygen', 'Sulphur', 'Selenium', 'Tellurium', 'Polonium'],
+                datasets: [{
+                    label: 'Electron Gain Enthalpy (Neg. Value kJ/mol)',
+                    data: [141, 200, 195, 190, 174], 
+                    backgroundColor: [
+                        'rgba(244, 63, 94, 0.4)', // Red for Oxygen (Low)
+                        'rgba(234, 179, 8, 0.8)', // Yellow for S (High)
+                        'rgba(234, 179, 8, 0.6)',
+                        'rgba(234, 179, 8, 0.4)',
+                        'rgba(234, 179, 8, 0.2)'
+                    ],
+                    borderWidth: 0,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { title: { display: true, text: 'Energy Released (kJ/mol)' }, grid: { color: '#1e293b' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // Boiling Point Chart
+        new Chart(document.getElementById('bpChart'), {
+            type: 'line',
+            data: {
+                labels: ['H₂O', 'H₂S', 'H₂Se', 'H₂Te'],
+                datasets: [{
+                    label: 'Boiling Point (K)',
+                    data: [373, 213, 232, 269], 
+                    borderColor: '#f97316',
+                    backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                    pointBackgroundColor: ['#38bdf8', '#f97316', '#f97316', '#f97316'], // Blue point for Water
+                    pointRadius: 6,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { title: { display: true, text: 'Temp (K)' }, grid: { color: '#1e293b' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

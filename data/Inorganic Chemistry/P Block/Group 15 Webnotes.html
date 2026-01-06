@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Notes: Group 15 (Nitrogen Family)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap');
+
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent-green: #4ade80; /* Nitrogen Green */
+            --accent-blue: #38bdf8;
+            --accent-orange: #fb923c; /* Phosphorus Glow */
+            --accent-red: #f43f5e;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+        }
+
+        .reaction-box {
+            background: #0f172a;
+            border-left: 4px solid var(--accent-orange);
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Structural Visuals */
+        .bond-angle-cone {
+            width: 0; 
+            height: 0; 
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-top: 60px solid var(--accent-blue);
+            opacity: 0.5;
+            margin: 0 auto;
+        }
+
+        .chem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .test-tube {
+            width: 40px;
+            height: 100px;
+            border: 2px solid #555;
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .liquid-layer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .brown-ring {
+            position: absolute;
+            bottom: 40%;
+            width: 100%;
+            height: 5px;
+            background: #8B4513; /* Brown */
+            box-shadow: 0 0 5px #8B4513;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 max-w-7xl mx-auto">
+
+    <!-- HERO HEADER -->
+    <header class="text-center mb-12">
+        <div class="inline-block px-4 py-1 mb-4 rounded-full bg-green-900/50 text-green-300 text-sm font-bold tracking-wider uppercase">JEE Mains & Advanced Notes</div>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">
+            GROUP <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 neon-text">15</span>
+        </h1>
+        <p class="text-xl text-gray-400">The Pnictogens • <span class="font-mono text-accent-green">ns² np³</span></p>
+        <div class="mt-6 flex justify-center gap-4 text-sm font-mono text-gray-500">
+            <span>N (Nitrogen)</span> • <span>P (Phosphorus)</span> • <span>As (Arsenic)</span> • <span>Sb (Antimony)</span> • <span>Bi (Bismuth)</span>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HYDRIDE TRENDS -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-green-600 flex items-center justify-center text-sm">1</span>
+            Hydride Trends (EH₃)
+        </h2>
+        
+        <div class="chem-grid">
+            <!-- Boiling Point Anomaly -->
+            <div class="glass-panel p-6 col-span-1 md:col-span-2">
+                <h3 class="text-xl font-bold text-accent-blue mb-2">Boiling Point Anomaly</h3>
+                <p class="text-sm text-gray-300 mb-4">
+                    Expected to increase with mass, but <strong class="text-white">NH₃ shoots up</strong> due to Hydrogen Bonding.
+                </p>
+                <div class="chart-wrapper">
+                    <canvas id="bpChart"></canvas>
+                </div>
+                <div class="mt-4 text-xs font-mono text-gray-400 text-center">
+                    Order: <span class="text-white">PH₃ < AsH₃ < NH₃ < SbH₃ < BiH₃</span>
+                    <br><span class="text-accent-blue">(Note: MP of NH₃ is highest among PH₃ and AsH₃ too!)</span>
+                </div>
+            </div>
+
+            <!-- Bond Angle -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-orange mb-2">Bond Angle & Drago's Rule</h3>
+                <div class="flex items-end justify-around h-32 mb-4 border-b border-gray-700 pb-4">
+                    <div class="text-center">
+                        <div class="text-2xl mb-1">📐</div>
+                        <div class="text-accent-green font-bold">107.8°</div>
+                        <div class="text-xs text-gray-500">NH₃ (sp³)</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-xl mb-1 opacity-80">📉</div>
+                        <div class="text-accent-orange font-bold">93.6°</div>
+                        <div class="text-xs text-gray-500">PH₃</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg mb-1 opacity-60">📉</div>
+                        <div class="text-gray-400 font-bold">~90°</div>
+                        <div class="text-xs text-gray-500">AsH₃/SbH₃</div>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300">
+                    <strong class="text-white">Why the drop?</strong> Heavy elements (P, As, Sb) use almost pure p-orbitals for bonding (Drago's Rule). No Hybridization.
+                </p>
+                <div class="mt-4 bg-gray-800 p-3 rounded text-xs">
+                    <strong>Basicity Order:</strong> NH₃ > PH₃ > AsH₃ > SbH₃ > BiH₃
+                    <br><span class="text-gray-500">(Smaller size = High electron density = Good Lewis Base)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: NITROGEN & NITRIC ACID -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-blue-600 flex items-center justify-center text-sm">2</span>
+            Nitric Acid (HNO₃) Matrix
+        </h2>
+
+        <div class="glass-panel p-6 mb-8 border-l-4 border-blue-500">
+            <h3 class="text-xl font-bold text-white mb-4">Oxidizing Action of HNO₃ (Crucial for JEE)</h3>
+            <p class="text-sm text-gray-400 mb-6">The product depends on concentration and the metal.</p>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-300">
+                    <thead class="text-xs text-gray-400 uppercase bg-gray-800">
+                        <tr>
+                            <th class="px-6 py-3">Metal</th>
+                            <th class="px-6 py-3">Conc. HNO₃</th>
+                            <th class="px-6 py-3 text-accent-green">Dilute HNO₃</th>
+                            <th class="px-6 py-3">Product (Salt)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-gray-900 border-b border-gray-800">
+                            <td class="px-6 py-4 font-bold text-white">Copper (Cu)</td>
+                            <td class="px-6 py-4 text-accent-red font-mono">NO₂ (Brown Gas)</td>
+                            <td class="px-6 py-4 text-accent-blue font-mono">NO (Nitric Oxide)</td>
+                            <td class="px-6 py-4">Cu(NO₃)₂</td>
+                        </tr>
+                        <tr class="bg-gray-800 border-b border-gray-700">
+                            <td class="px-6 py-4 font-bold text-white">Zinc (Zn)</td>
+                            <td class="px-6 py-4 text-accent-red font-mono">NO₂ (Brown Gas)</td>
+                            <td class="px-6 py-4 text-accent-green font-mono">N₂O (Laughing Gas)</td>
+                            <td class="px-6 py-4">Zn(NO₃)₂</td>
+                        </tr>
+                        <tr class="bg-gray-900">
+                            <td class="px-6 py-4 font-bold text-white">Cr / Al / Fe</td>
+                            <td class="px-6 py-4" colspan="2">
+                                <span class="bg-red-900 text-red-200 px-2 py-1 rounded text-xs">PASSIVE (No Reaction)</span>
+                                <span class="block text-[10px] mt-1 text-gray-500">Due to oxide layer formation</span>
+                            </td>
+                            <td class="px-6 py-4">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-6 flex flex-col md:flex-row gap-6">
+                <!-- Brown Ring Test -->
+                <div class="flex-1 bg-gray-800 p-4 rounded-lg flex items-center gap-4">
+                    <div class="test-tube bg-gray-700">
+                        <div class="liquid-layer h-full bg-yellow-900/20"></div>
+                        <div class="brown-ring"></div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Brown Ring Test</h4>
+                        <div class="text-xs font-mono text-accent-orange mb-1">[Fe(H₂O)₅(NO)]²⁺</div>
+                        <p class="text-[10px] text-gray-400">
+                            Detection of Nitrate.<br>
+                            Oxidation State of Fe is +1.<br>
+                            NO is +1 (Nitrosonium).
+                        </p>
+                    </div>
+                </div>
+                <!-- Ostwald Process -->
+                <div class="flex-1 bg-gray-800 p-4 rounded-lg">
+                    <h4 class="font-bold text-white mb-2">Ostwald Process (HNO₃ Prep)</h4>
+                    <div class="text-xs space-y-2">
+                        <div class="flex gap-2">
+                            <span class="text-accent-green">1.</span>
+                            <span>NH₃ + O₂ (Pt/Rh) → NO</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="text-accent-green">2.</span>
+                            <span>NO + O₂ → NO₂</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="text-accent-green">3.</span>
+                            <span>NO₂ + H₂O → HNO₃ + NO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: PHOSPHORUS WORLD -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-orange-600 flex items-center justify-center text-sm">3</span>
+            Phosphorus: The Glowing Element
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Allotropes -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-white mb-4">White vs Red P</h3>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="bg-gray-800 p-3 rounded">
+                        <span class="text-white font-bold block mb-1">White P (P₄)</span>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• Discrete Tetrahedra</li>
+                            <li>• Angle 60° (Strain!)</li>
+                            <li>• Glows (Chemiluminescence)</li>
+                            <li>• Soluble in CS₂</li>
+                            <li>• Poisonous</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 p-3 rounded">
+                        <span class="text-red-400 font-bold block mb-1">Red P</span>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• Polymeric Chain</li>
+                            <li>• Stable</li>
+                            <li>• Does not glow</li>
+                            <li>• Insoluble</li>
+                            <li>• Non-poisonous</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PCl5 Structure -->
+            <div class="glass-panel p-6">
+                <h3 class="text-xl font-bold text-accent-orange mb-2">The PCl₅ Paradox</h3>
+                <p class="text-sm text-gray-300 mb-4">Gas phase and Solid phase are totally different.</p>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center bg-gray-900 p-3 rounded border border-gray-700">
+                        <span class="text-gray-400">Gas Phase</span>
+                        <span class="text-accent-green font-mono">Trigonal Bipyramidal</span>
+                        <span class="text-[10px] text-gray-500">Axial > Equatorial bonds</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-gray-900 p-3 rounded border border-gray-700">
+                        <span class="text-gray-400">Solid Phase</span>
+                        <span class="text-accent-orange font-mono">[PCl₄]⁺ [PCl₆]⁻</span>
+                        <span class="text-[10px] text-gray-500">Ionic Solid</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Oxoacids Cards -->
+        <h3 class="text-xl font-bold text-white mb-4 pl-2 border-l-4 border-accent-green">Oxoacids of Phosphorus</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- H3PO2 -->
+            <div class="glass-panel p-4 border-t-4 border-t-blue-400">
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white">Hypophosphorous</h4>
+                    <span class="text-xs font-mono text-gray-500">H₃PO₂</span>
+                </div>
+                <div class="bg-gray-900 p-2 rounded text-center mb-2">
+                    <span class="text-accent-green font-bold text-xl">+1</span>
+                    <span class="text-[10px] block text-gray-500">Oxidation State</span>
+                </div>
+                <ul class="text-xs text-gray-300 space-y-1">
+                    <li class="flex justify-between"><span>P-OH Bonds:</span> <span class="text-white font-bold">1 (Monobasic)</span></li>
+                    <li class="flex justify-between"><span>P-H Bonds:</span> <span class="text-accent-orange font-bold">2 (Reducing)</span></li>
+                </ul>
+                <p class="text-[10px] text-gray-500 mt-2 italic">Strong reducing agent due to 2 P-H bonds.</p>
+            </div>
+
+            <!-- H3PO3 -->
+            <div class="glass-panel p-4 border-t-4 border-t-yellow-400">
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white">Orthophosphorous</h4>
+                    <span class="text-xs font-mono text-gray-500">H₃PO₃</span>
+                </div>
+                <div class="bg-gray-900 p-2 rounded text-center mb-2">
+                    <span class="text-accent-green font-bold text-xl">+3</span>
+                    <span class="text-[10px] block text-gray-500">Oxidation State</span>
+                </div>
+                <ul class="text-xs text-gray-300 space-y-1">
+                    <li class="flex justify-between"><span>P-OH Bonds:</span> <span class="text-white font-bold">2 (Dibasic)</span></li>
+                    <li class="flex justify-between"><span>P-H Bonds:</span> <span class="text-accent-orange font-bold">1 (Reducing)</span></li>
+                </ul>
+            </div>
+
+            <!-- H3PO4 -->
+            <div class="glass-panel p-4 border-t-4 border-t-purple-400">
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="font-bold text-white">Orthophosphoric</h4>
+                    <span class="text-xs font-mono text-gray-500">H₃PO₄</span>
+                </div>
+                <div class="bg-gray-900 p-2 rounded text-center mb-2">
+                    <span class="text-accent-green font-bold text-xl">+5</span>
+                    <span class="text-[10px] block text-gray-500">Oxidation State</span>
+                </div>
+                <ul class="text-xs text-gray-300 space-y-1">
+                    <li class="flex justify-between"><span>P-OH Bonds:</span> <span class="text-white font-bold">3 (Tribasic)</span></li>
+                    <li class="flex justify-between"><span>P-H Bonds:</span> <span class="text-gray-600 font-bold">0</span></li>
+                </ul>
+                <p class="text-[10px] text-gray-500 mt-2 italic">Not a reducing agent.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: TRICKY ZONE -->
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-red-600 flex items-center justify-center text-sm">4</span>
+            The "Gotcha" Zone
+        </h2>
+
+        <div class="glass-panel p-6 border border-red-900/50">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-accent-red mb-2">1. NCl₃ vs PCl₃ Hydrolysis</h4>
+                    <div class="reaction-box">
+                        NCl₃ + 3H₂O → NH₃ + <span class="text-accent-orange">HOCl</span>
+                    </div>
+                    <div class="reaction-box">
+                        PCl₃ + 3H₂O → H₃PO₃ + <span class="text-accent-green">HCl</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">
+                        <strong>Reason:</strong> In NCl₃, water attacks Cl (N has no d-orbitals). In PCl₃, water attacks P (has vacant d-orbitals).
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-accent-red mb-2">2. Single Bond Strength</h4>
+                    <p class="text-sm text-gray-300 mb-2">
+                        Which is stronger: <span class="font-mono">N-N</span> or <span class="font-mono">P-P</span>?
+                    </p>
+                    <div class="bg-gray-900 p-2 rounded text-center border border-gray-700">
+                        <span class="text-accent-green font-bold">P-P > N-N</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2">
+                        <strong>Why?</strong> In N-N, the lone pairs are very close (small size), causing huge repulsion, weakening the bond. This is why Nitrogen doesn't catenate well!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-gray-500 text-sm pb-8 border-t border-gray-800 pt-8">
+        <p>Nitrogen is inert, Phosphorus glows, Arsenic poisons. Group 15 is wild. Next up: Group 16.</p>
+    </footer>
+
+    <!-- CHART SCRIPTS -->
+    <script>
+        // Common Options
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = '#1e293b';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // Boiling Point Chart
+        new Chart(document.getElementById('bpChart'), {
+            type: 'line',
+            data: {
+                labels: ['NH₃', 'PH₃', 'AsH₃', 'SbH₃', 'BiH₃'],
+                datasets: [{
+                    label: 'Boiling Point (K)',
+                    data: [238.5, 185.5, 210.6, 254.6, 290], 
+                    borderColor: '#4ade80',
+                    backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                    pointBackgroundColor: ['#38bdf8', '#4ade80', '#4ade80', '#4ade80', '#4ade80'], // Blue for NH3
+                    pointRadius: 6,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) { label += ': '; }
+                                label += context.raw + ' K';
+                                if(context.label === 'NH₃') label += ' (High due to H-Bond!)';
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { title: { display: true, text: 'Boiling Point (K)' }, grid: { color: '#1e293b' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
