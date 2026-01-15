@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanical Properties of Matter | Full Chapter Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); }
+        .nav-link:hover { color: #3b82f6; transform: translateX(5px); transition: all 0.2s; }
+        .formula-box { background: #f8fafc; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+
+    <!-- Mobile Navigation Toggle -->
+    <div class="lg:hidden fixed bottom-6 right-6 z-50">
+        <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')" class="bg-blue-600 text-white p-4 rounded-full shadow-2xl">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="flex">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="fixed left-0 top-0 h-screen w-72 bg-white border-r border-gray-200 overflow-y-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40 p-6 shadow-sm">
+            <h2 class="text-xl font-bold text-blue-600 mb-8">Chapter Index</h2>
+            <nav class="space-y-4 text-sm font-medium text-gray-600">
+                <a href="#stress" class="block nav-link">1. Stress (All Types)</a>
+                <a href="#volume-stress" class="block nav-link">2. Volume Stress</a>
+                <a href="#strain" class="block nav-link">3. Strain (All Types)</a>
+                <a href="#hookes-law" class="block nav-link">4. Hooke's Law & Moduli</a>
+                <a href="#stress-strain-curve" class="block nav-link">5. Stress-Strain Relation</a>
+                <a href="#elastic-potential" class="block nav-link">6. Elastic Potential Energy</a>
+                <a href="#youngs-lab" class="block nav-link">7. Lab: Young's Modulus</a>
+                <hr class="my-4">
+                <h3 class="text-xs uppercase tracking-widest text-gray-400 font-bold">Fluids Section</h3>
+                <a href="#surface-tension" class="block nav-link">8. Surface Tension</a>
+                <a href="#surface-energy" class="block nav-link">9. Surface Energy</a>
+                <a href="#excess-pressure" class="block nav-link">10-12. Excess Pressure</a>
+                <a href="#contact-angle" class="block nav-link">13. Contact Angle</a>
+                <a href="#capillary" class="block nav-link">14. Capillary Rise</a>
+                <a href="#viscosity" class="block nav-link">15. Viscosity</a>
+                <a href="#flow" class="block nav-link">16. Narrow Tube Flow</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="lg:ml-72 w-full p-6 lg:p-12 max-w-5xl mx-auto">
+            <header class="mb-12 border-b border-gray-200 pb-8">
+                <span class="text-blue-600 font-bold tracking-widest uppercase text-xs">NCERT Physics | Class 11</span>
+                <h1 class="text-4xl lg:text-5xl font-extrabold mt-2 tracking-tight">Mechanical Properties of Matter</h1>
+                <p class="text-gray-500 mt-4 text-lg">Comprehensive review of solids and fluids based on chapter curriculum.</p>
+            </header>
+
+            <!-- 1. Stress -->
+            <section id="stress" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">1</span>
+                    Stress: The Internal Resistance
+                </h2>
+                <p class="mb-4">When a body is subjected to a deforming force, a <strong>restoring force</strong> is developed in the body. Stress is defined as the restoring force per unit area.</p>
+                <div class="formula-box">
+                    \[ Stress = \frac{Force (F)}{Area (A)} \]
+                </div>
+                <ul class="list-disc pl-6 space-y-2 mt-4">
+                    <li><strong>SI Unit:</strong> \(N m^{-2}\) or Pascal (Pa)</li>
+                    <li><strong>Dimensional Formula:</strong> \([ML^{-1}T^{-2}]\)</li>
+                </ul>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div class="p-4 bg-white border rounded-lg shadow-sm">
+                        <h4 class="font-bold text-blue-600">Tensile & Compressive</h4>
+                        <p class="text-sm">Longitudinal stress. Tensile increases length; Compressive decreases it.</p>
+                    </div>
+                    <div class="p-4 bg-white border rounded-lg shadow-sm">
+                        <h4 class="font-bold text-blue-600">Tangential (Shearing)</h4>
+                        <p class="text-sm">Forces applied parallel to the cross-section, causing relative displacement between faces.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Volume Stress -->
+            <section id="volume-stress" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">2</span>
+                    Volume Stress (Hydraulic Stress)
+                </h2>
+                <p>When an object is submerged in a fluid, the force applied by the fluid acts perpendicularly at each point. This is <strong>Hydraulic Stress</strong>.</p>
+                <div class="formula-box">
+                    \[ Hydraulic Stress = \text{Hydraulic Pressure (P)} = \frac{F}{A} \]
+                </div>
+                <p class="mt-2 text-sm text-gray-600">It leads to a decrease in volume without changing the geometrical shape.</p>
+            </section>
+
+            <!-- 3. Strain -->
+            <section id="strain" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">3</span>
+                    Strain: The Deformation Ratio
+                </h2>
+                <p class="mb-4">Strain is the ratio of change in dimension to the original dimension. It is <strong>dimensionless</strong> and has no units.</p>
+                <div class="space-y-4">
+                    <div class="p-4 bg-gray-100 rounded-lg">
+                        <p><strong>Longitudinal Strain:</strong> \( \epsilon = \frac{\Delta L}{L} \)</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 rounded-lg">
+                        <p><strong>Shearing Strain:</strong> \( \theta = \frac{\Delta x}{L} \approx \tan \theta \)</p>
+                    </div>
+                    <div class="p-4 bg-gray-100 rounded-lg">
+                        <p><strong>Volume Strain:</strong> \( \frac{\Delta V}{V} \)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Hooke's Law -->
+            <section id="hookes-law" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">4</span>
+                    Hooke's Law & Moduli of Elasticity
+                </h2>
+                <p class="mb-4"><strong>Hooke's Law:</strong> For small deformations, stress is directly proportional to strain.</p>
+                <div class="formula-box text-center">
+                    \[ Stress \propto Strain \implies Stress = k \times Strain \]
+                </div>
+                <h3 class="text-xl font-semibold mt-8 mb-4">The Elastic Moduli</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse border border-gray-200">
+                        <thead class="bg-blue-50">
+                            <tr>
+                                <th class="p-4 border">Modulus</th>
+                                <th class="p-4 border">Formula</th>
+                                <th class="p-4 border">Significance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-4 border font-bold">Young's (Y)</td>
+                                <td class="p-4 border">\( Y = \frac{FL}{A\Delta L} \)</td>
+                                <td class="p-4 border">Resistance to length change (Solids only).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border font-bold">Shear (G)</td>
+                                <td class="p-4 border">\( G = \frac{F}{A\theta} \)</td>
+                                <td class="p-4 border">Resistance to shape change (Rigidity).</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border font-bold">Bulk (B)</td>
+                                <td class="p-4 border">\( B = \frac{-P}{\Delta V/V} \)</td>
+                                <td class="p-4 border">Resistance to volume change.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-6 space-y-2">
+                    <p><strong>Compressibility (k):</strong> Reciprocal of Bulk Modulus. \( k = 1/B \). Solids are least compressible; Gases are most.</p>
+                    <p><strong>Poisson's Ratio (\( \sigma \)):</strong> \( \sigma = \frac{\text{Lateral Strain}}{\text{Longitudinal Strain}} = \frac{\Delta d/d}{\Delta L/L} \).</p>
+                </div>
+            </section>
+
+            <!-- 5. Stress-Strain Relation -->
+            <section id="stress-strain-curve" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">5</span>
+                    Relation between Longitudinal Stress & Strain
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 bg-white border rounded-xl">
+                        <h3 class="font-bold text-lg mb-2">Metal Wire (Ductile)</h3>
+                        <svg viewBox="0 0 200 150" class="w-full h-40 border-b border-l border-gray-800 mb-4">
+                            <path d="M 0 150 L 50 80 Q 70 60 100 50 L 150 45 Q 170 45 180 100" fill="none" stroke="#2563eb" stroke-width="2"/>
+                            <text x="10" y="70" font-size="8">Elastic Limit</text>
+                            <text x="120" y="30" font-size="8">Plastic Region</text>
+                            <circle cx="50" cy="80" r="2" fill="red"/>
+                        </svg>
+                        <p class="text-sm">Metal obeys Hooke's law until the <strong>Proportional Limit</strong>. Beyond the <strong>Yield Point</strong>, it deforms plastically.</p>
+                    </div>
+                    <div class="p-6 bg-white border rounded-xl">
+                        <h3 class="font-bold text-lg mb-2">Rubber (Elastomer)</h3>
+                        <svg viewBox="0 0 200 150" class="w-full h-40 border-b border-l border-gray-800 mb-4">
+                            <path d="M 0 150 Q 80 145 100 80 Q 120 20 180 10" fill="none" stroke="#db2777" stroke-width="2"/>
+                            <text x="120" y="60" font-size="8" fill="#db2777">No Hooke's Law</text>
+                        </svg>
+                        <p class="text-sm">Rubber can be stretched to large strains but <strong>does not obey Hooke's law</strong>. It returns to original shape but lacks a linear region.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Elastic Potential Energy -->
+            <section id="elastic-potential" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">6</span>
+                    Elastic Potential Energy
+                </h2>
+                <p>Work done against inter-atomic forces during deformation is stored as potential energy.</p>
+                <div class="formula-box">
+                    \[ W = \frac{1}{2} \times \text{Young's Modulus} \times (\text{Strain})^2 \times \text{Volume} \]
+                    \[ \text{Energy density (u)} = \frac{1}{2} \times \text{Stress} \times \text{Strain} \]
+                </div>
+            </section>
+
+            <!-- 7. Young's Modulus Determination -->
+            <section id="youngs-lab" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">7</span>
+                    Determination of Young's Modulus in Lab
+                </h2>
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <p>Typically measured using <strong>Searle's Apparatus</strong>. It uses two wires (Reference and Experimental) to eliminate errors from support yielding or temperature changes.</p>
+                    <ul class="list-decimal pl-6 mt-4 space-y-2 text-sm">
+                        <li>Calculate cross-section area \( A = \pi r^2 \).</li>
+                        <li>Measure original length \( L \).</li>
+                        <li>Add weights to experimental wire and measure extension \( \Delta L \) using a spherometer/vernier scale.</li>
+                        <li>Plot \( M \) vs \( \Delta L \); slope gives Young's modulus.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 8. Surface Tension -->
+            <section id="surface-tension" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-indigo-700">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">8</span>
+                    Surface Tension
+                </h2>
+                <p>Surface tension (\( S \)) is the force per unit length acting in the plane of the interface between the liquid and the bounding surface.</p>
+                <div class="formula-box border-indigo-600">
+                    \[ S = \frac{Force (F)}{Length (L)} \]
+                </div>
+                <p class="text-sm italic">Unit: \( N/m \). Dimensional formula: \([MT^{-2}]\).</p>
+            </section>
+
+            <!-- 9. Surface Energy -->
+            <section id="surface-energy" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-indigo-700">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">9</span>
+                    Surface Energy
+                </h2>
+                <p>The work done to increase the surface area of a liquid. Molecules on the surface have more potential energy than those in the bulk.</p>
+                <div class="formula-box border-indigo-600">
+                    \[ \text{Surface Energy} = S \times \Delta A \]
+                </div>
+            </section>
+
+            <!-- 10-12. Excess Pressure -->
+            <section id="excess-pressure" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-indigo-700">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">10</span>
+                    Excess Pressure
+                </h2>
+                <p class="mb-4">Surface tension causes pressure inside a curved surface to be higher than outside.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 border rounded-lg bg-white">
+                        <h4 class="font-bold">Liquid Drop</h4>
+                        <p>One surface interface.</p>
+                        <div class="text-blue-600 font-bold mt-2">\( P_2 - P_1 = \frac{2S}{R} \)</div>
+                    </div>
+                    <div class="p-4 border rounded-lg bg-white">
+                        <h4 class="font-bold">Soap Bubble</h4>
+                        <p>Two surface interfaces (inner & outer).</p>
+                        <div class="text-blue-600 font-bold mt-2">\( P_2 - P_1 = \frac{4S}{R} \)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. Contact Angle -->
+            <section id="contact-angle" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-indigo-700">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">13</span>
+                    Contact Angle (\( \theta \))
+                </h2>
+                <p>The angle between the tangent to the liquid surface at the point of contact and the solid surface inside the liquid.</p>
+                <ul class="mt-4 space-y-2">
+                    <li><strong>\( \theta < 90^\circ \) (Acute):</strong> Liquid "wets" the surface (e.g., Water on glass).</li>
+                    <li><strong>\( \theta > 90^\circ \) (Obtuse):</strong> Liquid does not wet the surface (e.g., Mercury on glass).</li>
+                </ul>
+            </section>
+
+            <!-- 14. Capillary Rise -->
+            <section id="capillary" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-indigo-700">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">14</span>
+                    Capillary Rise (Ascent Formula)
+                </h2>
+                <p>The rise or fall of a liquid in a narrow tube (capillary) is due to surface tension.</p>
+                <div class="formula-box border-indigo-600">
+                    \[ h = \frac{2S \cos \theta}{r \rho g} \]
+                </div>
+                <p class="text-sm">Where \( r \) is tube radius, \( \rho \) is density, and \( g \) is gravity.</p>
+            </section>
+
+            <!-- 15. Viscosity -->
+            <section id="viscosity" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-indigo-700">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">15</span>
+                    Viscosity
+                </h2>
+                <p>The resistance offered by a fluid to its own flow (internal friction). Defined by Newton's law of viscosity:</p>
+                <div class="formula-box border-indigo-600">
+                    \[ F = -\eta A \frac{dv}{dx} \]
+                </div>
+                <p>Where \( \eta \) is the <strong>Coefficient of Viscosity</strong>. Unit: Poiseuille (Pl) or \( Pa \cdot s \).</p>
+            </section>
+
+            <!-- 16. Poiseuille, Stokes, Terminal -->
+            <section id="flow" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 flex items-center text-indigo-700">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center mr-3 text-sm">16</span>
+                    Flow through Narrow Tubes & Stokes Law
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-white p-6 border rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">Poiseuille's Equation</h4>
+                        <p class="text-sm mb-2">Volume flow rate (\( V \)) through a narrow tube of length \( L \) and radius \( r \):</p>
+                        <div class="text-xl text-blue-600">\[ V = \frac{\pi P r^4}{8 \eta L} \]</div>
+                    </div>
+
+                    <div class="bg-white p-6 border rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">Stokes' Law</h4>
+                        <p class="text-sm mb-2">Viscous drag force (\( F \)) on a sphere of radius \( r \) moving with velocity \( v \):</p>
+                        <div class="text-xl text-blue-600">\[ F = 6 \pi \eta r v \]</div>
+                    </div>
+
+                    <div class="bg-white p-6 border rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">Terminal Velocity (\( v_t \))</h4>
+                        <p class="text-sm mb-2">The constant velocity reached by a falling body when viscous force + buoyant force = weight.</p>
+                        <div class="text-xl text-blue-600">\[ v_t = \frac{2}{9} \frac{r^2 (\rho - \sigma) g}{\eta} \]</div>
+                        <p class="text-xs mt-2 text-gray-500">(\( \rho \) = density of object, \( \sigma \) = density of fluid)</p>
+                    </div>
+
+                    <div class="bg-white p-6 border rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">Reynolds Number (\( R_e \))</h4>
+                        <p class="text-sm mb-2">Determines the type of flow (Laminar vs Turbulent).</p>
+                        <div class="text-xl text-blue-600">\[ R_e = \frac{\rho v d}{\eta} \]</div>
+                        <ul class="text-sm mt-2">
+                            <li>\( R_e < 1000 \): Laminar Flow</li>
+                            <li>\( R_e > 2000 \): Turbulent Flow</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mt-20 pt-10 border-t border-gray-200 text-center text-gray-400 text-sm">
+                <p>Full Chapter Comprehensive Guide | For Educational Use Only</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Smooth scrolling for sidebar links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                if (window.innerWidth < 1024) {
+                    document.getElementById('sidebar').classList.add('-translate-x-full');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
