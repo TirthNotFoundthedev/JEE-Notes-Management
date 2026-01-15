@@ -9,27 +9,34 @@
     "P Block": [
       {
         "name": "Group 13 Webnotes.html",
-        "type": "Webnotes"
+        "type": "Group 13 Webnotes"
       },
       {
         "name": "Group 14 Webnotes.html",
-        "type": "Webnotes"
+        "type": "Group 14 Webnotes"
       },
       {
         "name": "Group 15 Webnotes.html",
-        "type": "Webnotes"
+        "type": "Group 15 Webnotes"
       },
       {
         "name": "Group 16 Webnotes.html",
-        "type": "Webnotes"
+        "type": "Group 16 Webnotes"
       },
       {
         "name": "Group 17 Webnotes.html",
-        "type": "Webnotes"
+        "type": "Group 17 Webnotes"
       }
     ]
   },
-  "Mathematics": {},
+  "Mathematics": {
+    "Functions": [
+      {
+        "name": "Functional Equation Relation Based.html",
+        "type": "Functional Equation Relation Based"
+      }
+    ]
+  },
   "Organic Chemistry": {},
   "Physical Chemistry": {
     "Atomic Structure": [
@@ -67,7 +74,7 @@
     "Rotational Motion": [
       {
         "name": "All MOI formulas.pdf",
-        "type": "Formula Sheet"
+        "type": "All MOI formulas"
       },
       {
         "name": "Super Short Notes.pdf",

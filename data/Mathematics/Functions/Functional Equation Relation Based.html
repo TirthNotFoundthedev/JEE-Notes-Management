@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Functional Equations Master Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .math-block {
+            background-color: #1e293b;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #22d3ee;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #334155;
+            text-align: left;
+        }
+        th {
+            background-color: #334155;
+            color: #22d3ee;
+        }
+        tr:nth-child(even) {
+            background-color: #1e293b;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 lg:p-12">
+    <div class="max-w-4xl mx-auto bg-slate-800/50 p-6 md:p-10 rounded-2xl shadow-2xl border border-slate-700">
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500 mb-4">
+                JEE Advanced: Functional Equations Cheat Sheet
+            </h1>
+            <div class="h-1 w-24 bg-cyan-500 mx-auto rounded-full"></div>
+        </header>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-2">
+                <span class="text-xl text-white bg-cyan-600 w-8 h-8 rounded-full flex items-center justify-center">1</span>
+                The "Big Four" Cauchy Equations
+            </h2>
+            <p class="text-slate-400 mb-4">
+                These are the foundation. If the problem states the function is <strong>continuous</strong> or a <strong>polynomial</strong>, you can instantly assume these forms.
+            </p>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Functional Equation</th>
+                            <th>Result</th>
+                            <th>Function Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>\( f(x + y) = f(x) + f(y) \)</td>
+                            <td>\( f(x) = cx \)</td>
+                            <td>Linear</td>
+                        </tr>
+                        <tr>
+                            <td>\( f(x + y) = f(x)f(y) \)</td>
+                            <td>\( f(x) = a^x \)</td>
+                            <td>Exponential</td>
+                        </tr>
+                        <tr>
+                            <td>\( f(xy) = f(x) + f(y) \)</td>
+                            <td>\( f(x) = \log_a x \)</td>
+			    <td>Logarithm</td>
+                        </tr>
+                        <tr>
+                            <td>\( f(xy) = f(x)f(y) \)</td>
+                            <td>\( f(x) = x^n \)</td>
+                            <td>Power</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-violet-400 mb-6 flex items-center gap-2">
+                <span class="text-xl text-white bg-violet-600 w-8 h-8 rounded-full flex items-center justify-center">2</span>
+                The "JEE Special" Results
+            </h2>
+            <p class="text-slate-400 mb-6">These specific forms are frequently used as "traps" or "shortcuts" in Advanced papers.</p>
+
+            <div class="space-y-8">
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold text-white mb-3">A. The Inversive Identity</h3>
+                    <p class="text-cyan-300 font-mono mb-2">Equation: \( f(x) \cdot f\left(\frac{1}{x}\right) = f(x) + f\left(\frac{1}{x}\right) \)</p>
+                    <p class="text-white font-bold text-lg">Result: \( f(x) = 1 \pm x^n \)</p>
+                    <p class="text-sm text-slate-500 mt-2 italic">*Note: The sign (\(\pm\)) and power (\(n\)) are determined by the given range or specific values (like \( f(2) \)).*</p>
+                </div>
+
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold text-white mb-3">B. Jensen’s Equation</h3>
+                    <p class="text-cyan-300 font-mono mb-2">Equation: \( f\left(\frac{x+y}{2}\right) = \frac{f(x) + f(y)}{2} \)</p>
+                    <p class="text-white font-bold text-lg">Result: \( f(x) = ax + b \)</p>
+                </div>
+
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-xl font-bold text-white mb-3">C. The Tangent Identity</h3>
+                    <p class="text-cyan-300 font-mono mb-2">Equation: \( f(x+y) = \frac{f(x) + f(y)}{1 - f(x)f(y)} \)</p>
+                    <p class="text-white font-bold text-lg">Result: \( f(x) = \tan(cx) \)</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold text-emerald-400 mb-6 flex items-center gap-2">
+                <span class="text-xl text-white bg-emerald-600 w-8 h-8 rounded-full flex items-center justify-center">3</span>
+                Tactical Strategies
+            </h2>
+            <ul class="space-y-4">
+                <li class="flex gap-4 items-start">
+                    <span class="text-emerald-400 text-xl">🎯</span>
+                    <div>
+                        <strong class="text-white">The "0, 1, -1" Test:</strong>
+                        <span class="text-slate-400 block">Always try plugging in \(x=0\), \(x=1\), or \(y=0\) first. It often collapses the equation and gives you \(f(0)\) or \(f(1)\), which are vital for finding constants.</span>
+                    </div>
+                </li>
+                <li class="flex gap-4 items-start">
+                    <span class="text-emerald-400 text-xl">⚡</span>
+                    <div>
+                        <strong class="text-white">The Derivative Move:</strong>
+                        <span class="text-slate-400 block">If the function is differentiable, differentiate with respect to \(x\) while keeping \(y\) constant (partial differentiation). This often leads to a differential equation you can solve.</span>
+                    </div>
+                </li>
+                <li class="flex gap-4 items-start">
+                    <span class="text-emerald-400 text-xl">📏</span>
+                    <div>
+                        <strong class="text-white">Check the Range:</strong>
+                        <span class="text-slate-400 block">Verify if the final function matches the given domain and range (e.g., \(1+x^n\) vs \(1-x^n\)).</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <footer class="mt-12 pt-8 border-t border-slate-700 text-center text-slate-500 text-sm italic">
+            Go get those marks. No cap. 🗿
+        </footer>
+    </div>
+</body>
+</html>
