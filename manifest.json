@@ -37,7 +37,14 @@
       }
     ]
   },
-  "Organic Chemistry": {},
+  "Organic Chemistry": {
+    "General": [
+      {
+        "name": "All Organic Reagents.html",
+        "type": "All Organic Reagents"
+      }
+    ]
+  },
   "Physical Chemistry": {
     "Atomic Structure": [
       {

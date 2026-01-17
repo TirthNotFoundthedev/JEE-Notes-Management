@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organic Chem Survival Guide (Full Dex) 🧪</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0f172a; 
+            background-image: radial-gradient(#1e293b 1px, transparent 1px); 
+            background-size: 32px 32px;
+            color: #e2e8f0;
+        }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+        
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #4ade80, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .neon-border-green { box-shadow: 0 0 10px rgba(74, 222, 128, 0.2); border-color: rgba(74, 222, 128, 0.5); }
+        .neon-border-pink { box-shadow: 0 0 10px rgba(244, 114, 182, 0.2); border-color: rgba(244, 114, 182, 0.5); }
+        .neon-border-blue { box-shadow: 0 0 10px rgba(96, 165, 250, 0.2); border-color: rgba(96, 165, 250, 0.5); }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Category Badge Colors */
+        .cat-halide { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+        .cat-aromatic { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+        .cat-alcohol { background: rgba(236, 72, 153, 0.2); color: #f472b6; border: 1px solid rgba(236, 72, 153, 0.4); }
+        .cat-carbonyl { background: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
+        .cat-acid { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .cat-nitrogen { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.4); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 glass-panel border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="text-3xl">🧪</span>
+                    <span class="text-xl font-bold tracking-tight text-white">Chem<span class="text-blue-400">Survivor</span></span>
+                </div>
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-lg mx-8">
+                    <div class="relative w-full">
+                        <input type="text" id="searchInput" placeholder="Search Reagents (e.g. 'Lucas', 'PCC', 'Amine')..." 
+                            class="w-full bg-slate-800/80 border border-slate-600 text-white rounded-xl py-2 pl-4 pr-10 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                        <span class="absolute right-3 top-2.5 text-slate-400">🔍</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <span class="text-xs font-mono text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-full">Count: <span id="countDisplay">0</span>/93</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Search (Visible only on mobile) -->
+    <div class="md:hidden p-4 glass-panel border-b border-white/10 sticky top-16 z-40">
+        <input type="text" id="mobileSearchInput" placeholder="Search Reagents..." 
+            class="w-full bg-slate-800/80 border border-slate-600 text-white rounded-xl py-2 px-4 focus:outline-none focus:border-blue-500">
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
+        
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 tracking-tight">The Full <span class="gradient-text">Dex</span></h1>
+            <p class="text-slate-400 max-w-2xl mx-auto">
+                Every single reagent from your syllabus with reaction equations. No filler. Just the sauce.
+            </p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8" id="filterContainer">
+            <button class="filter-btn active bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-medium transition hover:bg-blue-500" data-filter="all">All</button>
+            <button class="filter-btn bg-slate-800 text-slate-300 border border-slate-700 px-4 py-1.5 rounded-full text-sm font-medium transition hover:border-blue-500 hover:text-white" data-filter="Halides">Halides</button>
+            <button class="filter-btn bg-slate-800 text-slate-300 border border-slate-700 px-4 py-1.5 rounded-full text-sm font-medium transition hover:border-purple-500 hover:text-white" data-filter="Aromatic">Aromatic</button>
+            <button class="filter-btn bg-slate-800 text-slate-300 border border-slate-700 px-4 py-1.5 rounded-full text-sm font-medium transition hover:border-pink-500 hover:text-white" data-filter="Alcohols">Alcohols/Phenols</button>
+            <button class="filter-btn bg-slate-800 text-slate-300 border border-slate-700 px-4 py-1.5 rounded-full text-sm font-medium transition hover:border-yellow-500 hover:text-white" data-filter="Carbonyls">Ald/Ketones</button>
+            <button class="filter-btn bg-slate-800 text-slate-300 border border-slate-700 px-4 py-1.5 rounded-full text-sm font-medium transition hover:border-red-500 hover:text-white" data-filter="Acids">Acids</button>
+            <button class="filter-btn bg-slate-800 text-slate-300 border border-slate-700 px-4 py-1.5 rounded-full text-sm font-medium transition hover:border-green-500 hover:text-white" data-filter="Nitrogen">Nitrogen</button>
+        </div>
+
+        <!-- The Grid -->
+        <div id="reagentGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Cards will be injected here via JS -->
+        </div>
+
+        <!-- No Results State -->
+        <div id="noResults" class="hidden text-center py-20">
+            <div class="text-6xl mb-4">🤷‍♂️</div>
+            <h3 class="text-2xl font-bold text-white mb-2">No reagents found</h3>
+            <p class="text-slate-400">Try searching for "Alcohol", "Test", or "Oxidation".</p>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // --- THE DATABASE (All 93 Items with Reactions) ---
+        const reagents = [
+            // I. Alkyl Halides (1-10)
+            { id: 1, name: "PCl₃, PBr₃, PI₃", func: "Alcohols → Alkyl Halides", cat: "Halides", note: "The OH-Snatchers. PI3 is made in-situ.", rxn: "3R-OH + PCl₃ → 3R-Cl + H₃PO₃" },
+            { id: 2, name: "SOCl₂, PCl₅", func: "Alcohols → Alkyl Chlorides", cat: "Halides", note: "SOCl₂ is best (Darzen's) because byproducts are gas.", rxn: "R-OH + SOCl₂ → R-Cl + SO₂↑ + HCl↑" },
+            { id: 3, name: "HCl + ZnCl₂ (Lucas)", func: "Alcohols → Alkyl Halides", cat: "Alcohols", note: "Distinguishes Alcohols. 3° (Instant) > 2° (5min) > 1° (Heat).", rxn: "R-OH + HCl →[ZnCl₂] R-Cl + H₂O" },
+            { id: 4, name: "Cl₂/Fe or FeCl₃", func: "Benzene → Chlorobenzene", cat: "Aromatic", note: "Electrophilic Substitution. Needs Lewis Acid.", rxn: "C₆H₆ + Cl₂ →[FeCl₃] C₆H₅Cl + HCl" },
+            { id: 5, name: "NaNO₂ + HCl (0-5°C)", func: "Aniline → Diazonium Salt (BDC)", cat: "Nitrogen", note: "Diazotisation. Must be cold or it becomes Phenol.", rxn: "Ar-NH₂ + NaNO₂ + 2HCl →[0-5°C] Ar-N₂⁺Cl⁻ + NaCl + 2H₂O" },
+            { id: 6, name: "Sandmeyer (CuCl/CuBr/CuCN)", func: "BDC → Ar-Cl / Ar-Br / Ar-CN", cat: "Nitrogen", note: "Replaces N2+ group. Also KI for Iodobenzene.", rxn: "Ar-N₂⁺Cl⁻ →[CuCl/HCl] Ar-Cl + N₂" },
+            { id: 7, name: "HBF₄ (Balz-Schiemann)", func: "BDC → Fluorobenzene", cat: "Nitrogen", note: "The only safe way to put Fluorine on Benzene.", rxn: "Ar-N₂⁺Cl⁻ + HBF₄ → Ar-N₂⁺BF₄⁻ →[Δ] Ar-F + BF₃ + N₂" },
+            { id: 8, name: "AgF, Hg₂F₂ (Swarts)", func: "R-Cl/Br → R-Fluoride", cat: "Halides", note: "Halide Exchange. Specific for Alkyl Fluorides.", rxn: "R-Cl + AgF → R-F + AgCl" },
+            { id: 9, name: "Na / Dry Ether (Wurtz)", func: "R-X → R-R (Alkane)", cat: "Halides", note: "Doubles the carbon chain. Watch out for moisture!", rxn: "2R-X + 2Na →[Dry Ether] R-R + 2NaX" },
+            { id: 10, name: "NaOH (623K, 300atm)", func: "Chlorobenzene → Phenol", cat: "Aromatic", note: "Dow's Process. Extreme conditions needed for nucleophilic sub.", rxn: "C₆H₅Cl + NaOH →[623K, 300atm] C₆H₅ONa →[H⁺] C₆H₅OH" },
+
+            // II. Aromatic (11-17)
+            { id: 11, name: "Br₂ / FeBr₃", func: "Benzene → Bromobenzene", cat: "Aromatic", note: "Bromination.", rxn: "C₆H₆ + Br₂ →[FeBr₃] C₆H₅Br + HBr" },
+            { id: 12, name: "Cl₂ / FeCl₃", func: "Benzene → Chlorobenzene", cat: "Aromatic", note: "Chlorination.", rxn: "C₆H₆ + Cl₂ →[FeCl₃] C₆H₅Cl + HCl" },
+            { id: 13, name: "CH₃Cl / AlCl₃", func: "Benzene → Toluene", cat: "Aromatic", note: "Friedel-Crafts Alkylation. Adds Alkyl group.", rxn: "C₆H₆ + CH₃Cl →[AlCl₃] C₆H₅CH₃ + HCl" },
+            { id: 14, name: "CH₃COCl / AlCl₃", func: "Benzene → Acetophenone", cat: "Aromatic", note: "Friedel-Crafts Acylation. Adds Acyl (Ketone) group.", rxn: "C₆H₆ + CH₃COCl →[AlCl₃] C₆H₅COCH₃ + HCl" },
+            { id: 15, name: "H₂SO₄ / HNO₃", func: "Benzene → Nitrobenzene", cat: "Aromatic", note: "Nitrating Mixture. Adds -NO2.", rxn: "C₆H₆ + HNO₃ →[H₂SO₄] C₆H₅NO₂ + H₂O" },
+            { id: 16, name: "(CH₃CO)₂O / AlCl₃", func: "Benzene → Acetophenone", cat: "Aromatic", note: "Acylation using Anhydride.", rxn: "C₆H₆ + (CH₃CO)₂O →[AlCl₃] C₆H₅COCH₃ + CH₃COOH" },
+            { id: 17, name: "Fuming H₂SO₄ (Oleum)", func: "Benzene → Benzenesulphonic Acid", cat: "Aromatic", note: "Sulphonation.", rxn: "C₆H₆ + H₂SO₄(SO₃) → C₆H₅SO₃H" },
+
+            // III. Alcohols (18-43)
+            { id: 18, name: "Dilute H₂SO₄ / H₂O", func: "Alkene → Alcohol", cat: "Alcohols", note: "Hydration. Markovnikov Rule applies.", rxn: "R-CH=CH₂ + H₂O →[H⁺] R-CH(OH)-CH₃" },
+            { id: 19, name: "B₂H₆ / H₂O₂, OH⁻", func: "Alkene → Alcohol", cat: "Alcohols", note: "HBO. Anti-Markovnikov addition of H-OH.", rxn: "R-CH=CH₂ →[1.B₂H₆ 2.H₂O₂/OH⁻] R-CH₂CH₂OH" },
+            { id: 20, name: "NaBH₄", func: "Ald/Ketone → Alcohol", cat: "Carbonyls", note: "Weak Reducer. Does NOT touch Acids/Esters.", rxn: "R-CHO + 2[H] →[NaBH₄] R-CH₂OH" },
+            { id: 21, name: "LiAlH₄ (LAH)", func: "Acids/Esters/Ald/Ket → Alcohol", cat: "Acids", note: "Strong Reducer. Reduces almost everything. Also Nitrile → Amine.", rxn: "R-COOH + 4[H] →[LiAlH₄] R-CH₂OH + H₂O" },
+            { id: 22, name: "RMgX (Grignard)", func: "Carbonyls → Alcohol (Step up)", cat: "Carbonyls", note: "HCHO→1°, RCHO→2°, RCOR→3°. Increases Carbon count.", rxn: "HCHO + RMgX → R-CH₂OMgX →[H₂O] R-CH₂OH" },
+            { id: 23, name: "O₂ / H⁺ (Cumene)", func: "Cumene → Phenol + Acetone", cat: "Alcohols", note: "Industrial prep of Phenol.", rxn: "Cumene + O₂ → Cumene Hydroperoxide →[H⁺] Phenol + Acetone" },
+            { id: 24, name: "Na Metal", func: "Alcohol → Alkoxide + H₂", cat: "Alcohols", note: "Test for Acidic Hydrogen.", rxn: "2R-OH + 2Na → 2R-ONa + H₂↑" },
+            { id: 25, name: "Acetic Anhydride/Chloride", func: "Alcohol/Amine → Ester/Amide", cat: "Alcohols", note: "Acetylation. E.g., Salicylic Acid → Aspirin.", rxn: "R-OH + (CH₃CO)₂O → R-O-COCH₃ + CH₃COOH" },
+            { id: 26, name: "Conc. H₂SO₄ (443K)", func: "Alcohol → Alkene", cat: "Alcohols", note: "Dehydration (Elimination).", rxn: "C₂H₅OH →[Conc H₂SO₄, 443K] CH₂=CH₂ + H₂O" },
+            { id: 27, name: "Conc. H₂SO₄ (413K)", func: "Alcohol → Ether", cat: "Alcohols", note: "Dehydration (Substitution).", rxn: "2C₂H₅OH →[Conc H₂SO₄, 413K] C₂H₅-O-C₂H₅ + H₂O" },
+            { id: 28, name: "85% H₃PO₄ (440K)", func: "2° Alcohol → Alkene", cat: "Alcohols", note: "Milder dehydration for secondary alcohols.", rxn: "2° Alcohol →[H₃PO₄, 440K] Alkene" },
+            { id: 29, name: "20% H₃PO₄ (358K)", func: "3° Alcohol → Alkene", cat: "Alcohols", note: "Tertiary alcohols dehydrate very easily.", rxn: "3° Alcohol →[H₃PO₄, 358K] Alkene" },
+            { id: 30, name: "Alc. KOH", func: "Alkyl Halide → Alkene", cat: "Halides", note: "Dehydrohalogenation (Elimination).", rxn: "R-CH₂-CH₂-X + KOH(alc) → R-CH=CH₂ + KX + H₂O" },
+            { id: 31, name: "Cu (573K)", func: "Alcohol Dehydrogenation", cat: "Alcohols", note: "1°→Aldehyde, 2°→Ketone, 3°→Alkene.", rxn: "R-CH₂OH →[Cu, 573K] R-CHO + H₂" },
+            { id: 32, name: "Dilute HNO₃", func: "Phenol → o/p-Nitrophenol", cat: "Alcohols", note: "Mononitration.", rxn: "Phenol + dil.HNO₃ → o-Nitrophenol + p-Nitrophenol" },
+            { id: 33, name: "Conc. HNO₃", func: "Phenol → Picric Acid", cat: "Alcohols", note: "Trinitration (2,4,6-trinitrophenol).", rxn: "Phenol + 3HNO₃(conc) → 2,4,6-Trinitrophenol" },
+            { id: 34, name: "Br₂ / H₂O", func: "Phenol → 2,4,6-Tribromophenol", cat: "Alcohols", note: "White Precipitate. Test for Phenol.", rxn: "Phenol + 3Br₂(aq) → 2,4,6-Tribromophenol + 3HBr" },
+            { id: 35, name: "Br₂ / CS₂", func: "Phenol → o/p-Bromophenol", cat: "Alcohols", note: "Non-polar solvent limits sub to mono-bromo.", rxn: "Phenol + Br₂ →[CS₂] o-Bromophenol + p-Bromophenol" },
+            { id: 36, name: "NaOH + CO₂ (Kolbe)", func: "Phenol → Salicylic Acid", cat: "Alcohols", note: "Electrophilic sub. Ortho major.", rxn: "Phenol →[NaOH] PhONa →[CO₂, H⁺] Salicylic Acid" },
+            { id: 37, name: "CHCl₃ + NaOH (Reimer-Tiemann)", func: "Phenol → Salicylaldehyde", cat: "Alcohols", note: "Forms carbene intermediate.", rxn: "Phenol + CHCl₃ + NaOH → Salicylaldehyde" },
+            { id: 38, name: "Zn Dust", func: "Phenol → Benzene", cat: "Alcohols", note: "Reduction. Removes Oxygen.", rxn: "C₆H₅OH + Zn → C₆H₆ + ZnO" },
+            { id: 39, name: "Na₂Cr₂O₇ / H₂SO₄", func: "Phenol → Benzoquinone", cat: "Alcohols", note: "Oxidation to conjugated diketone.", rxn: "Phenol →[Na₂Cr₂O₇/H₂SO₄] Benzoquinone" },
+            { id: 40, name: "ZnO-Cr₂O₃", func: "CO + H₂ → Methanol", cat: "Alcohols", note: "Industrial synthesis.", rxn: "CO + 2H₂ →[ZnO-Cr₂O₃] CH₃OH" },
+            { id: 41, name: "Invertase", func: "Sucrose → Glucose + Fructose", cat: "Alcohols", note: "Enzyme.", rxn: "C₁₂H₂₂O₁₁ + H₂O → Glucose + Fructose" },
+            { id: 42, name: "Zymase", func: "Glucose → Ethanol", cat: "Alcohols", note: "Fermentation.", rxn: "C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂" },
+            { id: 43, name: "HI (excess)", func: "Ether → Alkyl Iodides", cat: "Alcohols", note: "Cleaves ethers.", rxn: "R-O-R + 2HI → 2R-I + H₂O" },
+
+            // IV. Aldehydes/Ketones (44-72)
+            { id: 44, name: "PCC", func: "1° Alcohol → Aldehyde", cat: "Carbonyls", note: "Mild Oxidizer. Stops at Aldehyde. Doesn't make acid.", rxn: "R-CH₂OH + PCC → R-CHO" },
+            { id: 45, name: "Pd-BaSO₄ / H₂ (Rosenmund)", func: "Acid Chloride → Aldehyde", cat: "Carbonyls", note: "Poisoned catalyst prevents reduction to alcohol.", rxn: "R-COCl + H₂ →[Pd/BaSO₄] R-CHO + HCl" },
+            { id: 46, name: "SnCl₂ / HCl (Stephen)", func: "Nitrile → Aldehyde", cat: "Carbonyls", note: "Reduction via Imine.", rxn: "R-CN + SnCl₂ + HCl → R-CH=NH →[H₃O⁺] R-CHO" },
+            { id: 47, name: "DIBAL-H", func: "Esters/Nitriles → Aldehyde", cat: "Carbonyls", note: "Selective reduction.", rxn: "R-CN / R-COOR' →[DIBAL-H] R-CHO" },
+            { id: 49, name: "CrO₂Cl₂ (Etard)", func: "Toluene → Benzaldehyde", cat: "Carbonyls", note: "Chromyl Chloride oxidation.", rxn: "Ph-CH₃ + CrO₂Cl₂ → Complex →[H₂O] Ph-CHO" },
+            { id: 50, name: "CrO₃ / Ac₂O", func: "Toluene → Benzaldehyde", cat: "Carbonyls", note: "Via protection step.", rxn: "Ph-CH₃ →[CrO₃/Ac₂O] Ph-CH(OAc)₂ →[H₃O⁺] Ph-CHO" },
+            { id: 51, name: "Cl₂/hv then H₂O", func: "Toluene → Benzaldehyde", cat: "Carbonyls", note: "Side chain chlorination/hydrolysis.", rxn: "Ph-CH₃ →[Cl₂/hv] Ph-CHCl₂ →[H₂O] Ph-CHO" },
+            { id: 52, name: "CO, HCl / AlCl₃ (Gatterman-Koch)", func: "Benzene → Benzaldehyde", cat: "Carbonyls", note: "Formylation.", rxn: "C₆H₆ + CO + HCl →[AlCl₃] C₆H₅CHO" },
+            { id: 53, name: "R₂Cd (Dialkyl Cadmium)", func: "Acid Chloride → Ketone", cat: "Carbonyls", note: "Less reactive than Grignard, stops at Ketone.", rxn: "2R'-COCl + R₂Cd → 2R'-CO-R + CdCl₂" },
+            { id: 54, name: "Grignard + Nitrile", func: "Nitrile → Ketone", cat: "Carbonyls", note: "Followed by hydrolysis.", rxn: "R-CN + R'MgX → R-C(R')=NMgX →[H₃O⁺] R-CO-R'" },
+            { id: 55, name: "HCN", func: "Carbonyl → Cyanohydrin", cat: "Carbonyls", note: "Nucleophilic Addition.", rxn: ">C=O + HCN → >C(OH)(CN)" },
+            { id: 56, name: "NaHSO₃", func: "Carbonyl → Bisulphite Adduct", cat: "Carbonyls", note: "White crystalline solid. Used for purification.", rxn: ">C=O + NaHSO₃ → >C(OH)(SO₃Na)" },
+            { id: 57, name: "NH₂OH (Hydroxylamine)", func: "Carbonyl → Oxime", cat: "Carbonyls", note: "Ammonia derivative.", rxn: ">C=O + NH₂OH → >C=N-OH + H₂O" },
+            { id: 58, name: "Hydrazine", func: "Carbonyl → Hydrazone", cat: "Carbonyls", note: "Ammonia derivative.", rxn: ">C=O + NH₂NH₂ → >C=N-NH₂ + H₂O" },
+            { id: 59, name: "Phenylhydrazine", func: "Carbonyl → Phenylhydrazone", cat: "Carbonyls", note: "Ammonia derivative.", rxn: ">C=O + Ph-NHNH₂ → >C=N-NHPh" },
+            { id: 60, name: "2,4-DNP", func: "Carbonyl → DNP Derivative", cat: "Carbonyls", note: "Orange Precipitate. Test for Aldehydes/Ketones.", rxn: ">C=O + 2,4-DNP → Orange Ppt" },
+            { id: 61, name: "Semicarbazide", func: "Carbonyl → Semicarbazone", cat: "Carbonyls", note: "Only the terminal NH2 reacts.", rxn: ">C=O + NH₂NHCONH₂ → >C=N-NHCONH₂" },
+            { id: 62, name: "ROH / HCl", func: "Aldehyde → Acetal", cat: "Carbonyls", note: "Protecting group.", rxn: "R-CHO + 2R'OH →[HCl] R-CH(OR')₂" },
+            { id: 63, name: "Glycol / HCl", func: "Ketone → Ketal", cat: "Carbonyls", note: "Cyclic acetal.", rxn: "Ketone + Glycol →[HCl] Cyclic Ketal" },
+            { id: 64, name: "Zn-Hg / HCl (Clemmensen)", func: "C=O → CH₂ (Alkane)", cat: "Carbonyls", note: "Acidic reduction of carbonyl.", rxn: ">C=O + 4[H] →[Zn-Hg/HCl] >CH₂ + H₂O" },
+            { id: 65, name: "NH₂NH₂ / KOH (Wolff-Kishner)", func: "C=O → CH₂ (Alkane)", cat: "Carbonyls", note: "Basic reduction of carbonyl.", rxn: ">C=O + NH₂NH₂ → >C=NNH₂ →[KOH/Glycol] >CH₂ + N₂" },
+            { id: 66, name: "KMnO₄ / K₂Cr₂O₇", func: "Strong Oxidation", cat: "Acids", note: "Alcohols/Aldehydes → Carboxylic Acid. Toluene → Benzoic Acid.", rxn: "R-CH₂OH → R-COOH" },
+            { id: 67, name: "Tollen's Reagent", func: "Aldehyde → Acid + Ag Mirror", cat: "Carbonyls", note: "Silver Mirror Test. Oxidizes Aldehydes only.", rxn: "R-CHO + 2[Ag(NH₃)₂]⁺ + 3OH⁻ → R-COO⁻ + 2Ag↓ + 4NH₃" },
+            { id: 68, name: "Fehling's Solution", func: "Aldehyde → Acid + Red Ppt", cat: "Carbonyls", note: "Cu2O ppt. Aliphatic Aldehydes only.", rxn: "R-CHO + 2Cu²⁺ + 5OH⁻ → R-COO⁻ + Cu₂O↓(Red) + 3H₂O" },
+            { id: 69, name: "NaOH + I₂ (Iodoform)", func: "Methyl Ketone Test", cat: "Carbonyls", note: "Yellow ppt (CHI3). Detects CH3-CO- or CH3-CH(OH)-.", rxn: "R-COCH₃ + 3I₂ + 4NaOH → R-COONa + CHI₃↓ + 3NaI" },
+            { id: 70, name: "Dilute NaOH (Aldol)", func: "Ald/Ket → Beta-hydroxy Ald", cat: "Carbonyls", note: "Needs Alpha-Hydrogen. Condensation.", rxn: "2CH₃CHO →[Dil NaOH] CH₃CH(OH)CH₂CHO" },
+            { id: 71, name: "Conc. NaOH (Cannizzaro)", func: "Aldehyde Disproportionation", cat: "Carbonyls", note: "No Alpha-H. One molecule oxidized, one reduced.", rxn: "2HCHO + Conc.NaOH → HCOONa + CH₃OH" },
+            { id: 72, name: "KMnO₄ / KOH / Heat", func: "Alkyl Benzene → Benzoic Acid", cat: "Acids", note: "Burns whole side chain to -COOH.", rxn: "Ph-R →[KMnO₄/KOH] Ph-COOK → Ph-COOH" },
+
+            // V. Acids (73-82)
+            { id: 73, name: "H₃O⁺ (Hydrolysis)", func: "CN/Ester/Amide → Acid", cat: "Acids", note: "Hydrolysis.", rxn: "R-CN / R-COOR / R-CONH₂ →[H₃O⁺] R-COOH" },
+            { id: 74, name: "NaOH (Saponification)", func: "Ester → Salt of Acid + Alcohol", cat: "Acids", note: "Base hydrolysis.", rxn: "R-COOR' + NaOH → R-COONa + R'OH" },
+            { id: 75, name: "NaHCO₃", func: "Acid → CO₂ Effervescence", cat: "Acids", note: "Test for Carboxylic Acid.", rxn: "R-COOH + NaHCO₃ → R-COONa + H₂O + CO₂↑" },
+            { id: 76, name: "P₂O₅ / Heat", func: "Acid → Anhydride", cat: "Acids", note: "Dehydrating agent. Also Amide → Nitrile.", rxn: "2R-COOH →[P₂O₅, Δ] (RCO)₂O + H₂O" },
+            { id: 77, name: "ROH / H⁺", func: "Acid + Alcohol → Ester", cat: "Acids", note: "Fischer Esterification.", rxn: "R-COOH + R'OH ⇌[H⁺] R-COOR' + H₂O" },
+            { id: 78, name: "PCl₃/PCl₅/SOCl₂", func: "Acid → Acid Chloride", cat: "Acids", note: "OH group replacement.", rxn: "R-COOH + SOCl₂ → R-COCl + SO₂ + HCl" },
+            { id: 79, name: "NH₃ / Heat", func: "Acid → Amide", cat: "Acids", note: "Formation of Amide.", rxn: "R-COOH + NH₃ → R-COONH₄ →[Δ] R-CONH₂" },
+            { id: 80, name: "NaOH + CaO (Soda Lime)", func: "R-COOH → R-H", cat: "Acids", note: "Decarboxylation. Removes CO2. Steps down carbon chain.", rxn: "R-COONa + NaOH →[CaO] R-H + Na₂CO₃" },
+            { id: 81, name: "LiAlH₄", func: "Acid → Alcohol", cat: "Acids", note: "Direct reduction to primary alcohol.", rxn: "R-COOH →[LiAlH₄] R-CH₂OH" },
+            { id: 82, name: "Cl₂ / Red P (HVZ)", func: "Acid → Alpha-Halo Acid", cat: "Acids", note: "Halogenation at alpha position.", rxn: "R-CH₂-COOH + X₂ →[Red P] R-CH(X)-COOH" },
+
+            // VI. Amines (83-93)
+            { id: 83, name: "Sn/HCl or Fe/HCl", func: "Nitro → Amine", cat: "Nitrogen", note: "Reduction of Nitro compounds. Fe is preferred.", rxn: "R-NO₂ + 6[H] →[Fe/HCl] R-NH₂ + 2H₂O" },
+            { id: 84, name: "NH₃ (Ammonolysis)", func: "R-X → Amine mixture", cat: "Nitrogen", note: "Nucleophilic substitution.", rxn: "R-X + NH₃ → R-NH₂ + HX" },
+            { id: 85, name: "H₂/Ni or LiAlH₄", func: "Amide/Nitrile → Amine", cat: "Nitrogen", note: "Reduction.", rxn: "R-CN / R-CONH₂ →[LiAlH₄] R-CH₂NH₂" },
+            { id: 86, name: "Gabriel Phthalimide", func: "Synthesis of 1° Amine", cat: "Nitrogen", note: "Only for aliphatic. Pure primary amines.", rxn: "Phthalimide →[1.KOH 2.RX 3.NaOH] R-NH₂" },
+            { id: 87, name: "Br₂ / NaOH (Hoffmann)", func: "Amide → Amine (Step down)", cat: "Nitrogen", note: "Bromamide Degradation. Removes Carbonyl C.", rxn: "R-CONH₂ + Br₂ + 4NaOH → R-NH₂ + Na₂CO₃ + 2NaBr" },
+            { id: 88, name: "CHCl₃ / KOH (Carbylamine)", func: "1° Amine Test", cat: "Nitrogen", note: "Forms Isocyanide (Foul smell).", rxn: "R-NH₂ + CHCl₃ + 3KOH → R-NC + 3KCl + 3H₂O" },
+            { id: 89, name: "NaNO₂ / HCl (Aliphatic)", func: "R-NH₂ → R-OH + N₂", cat: "Nitrogen", note: "Unstable diazo decomposes to alcohol.", rxn: "R-NH₂ + HNO₂ → [R-N₂⁺] → R-OH + N₂↑" },
+            { id: 90, name: "NaNO₂ / HCl (Aromatic)", func: "Aniline → BDC", cat: "Nitrogen", note: "Stable Diazonium Salt at 0-5°C.", rxn: "Ph-NH₂ + HNO₂ →[0-5°C] Ph-N₂⁺Cl⁻" },
+            { id: 91, name: "Hinsberg's Reagent", func: "Distinguishes Amines", cat: "Nitrogen", note: "Benzene sulfonyl chloride. 1°(Soluble), 2°(Insoluble), 3°(No Rxn).", rxn: "Ph-SO₂Cl + R-NH₂ → Ph-SO₂-NH-R" },
+            { id: 92, name: "Br₂ / H₂O (Aniline)", func: "Aniline → Tribromoaniline", cat: "Nitrogen", note: "White Ppt. Highly activating group.", rxn: "Ph-NH₂ + 3Br₂ → 2,4,6-Tribromoaniline" },
+            { id: 93, name: "Acetylation first", func: "Aniline → Monobromoaniline", cat: "Nitrogen", note: "Protects NH2 group to control activity.", rxn: "Ph-NH₂ →[Ac₂O] Ph-NHAc →[Br₂] →[OH⁻] p-Bromoaniline" }
+        ];
+
+        // --- RENDER LOGIC ---
+        const grid = document.getElementById('reagentGrid');
+        const searchInput = document.getElementById('searchInput');
+        const mobileSearchInput = document.getElementById('mobileSearchInput');
+        const countDisplay = document.getElementById('countDisplay');
+        const noResults = document.getElementById('noResults');
+        const btns = document.querySelectorAll('.filter-btn');
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        function getCategoryClass(cat) {
+            switch(cat) {
+                case 'Halides': return 'cat-halide';
+                case 'Aromatic': return 'cat-aromatic';
+                case 'Alcohols': return 'cat-alcohol';
+                case 'Carbonyls': return 'cat-carbonyl';
+                case 'Acids': return 'cat-acid';
+                case 'Nitrogen': return 'cat-nitrogen';
+                default: return 'bg-slate-700 text-slate-300';
+            }
+        }
+
+        function render() {
+            grid.innerHTML = '';
+            
+            const filtered = reagents.filter(item => {
+                const matchesFilter = currentFilter === 'all' || item.cat === currentFilter;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery) || 
+                                      item.func.toLowerCase().includes(searchQuery) ||
+                                      item.note.toLowerCase().includes(searchQuery);
+                return matchesFilter && matchesSearch;
+            });
+
+            countDisplay.innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'glass-panel p-6 rounded-2xl card-hover border-t-2 border-transparent hover:border-blue-400 group relative overflow-hidden flex flex-col h-full';
+                    
+                    const catClass = getCategoryClass(item.cat);
+                    
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="text-xs font-mono font-bold opacity-50">#${item.id}</span>
+                            <span class="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${catClass}">${item.cat}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 leading-tight group-hover:text-blue-300 transition">${item.name}</h3>
+                        <div class="mb-2">
+                            <p class="text-sm font-bold text-emerald-400">⚡ ${item.func}</p>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4 flex-grow">${item.note}</p>
+                        
+                        <!-- Reaction Block -->
+                        <div class="mt-auto p-3 bg-slate-900/50 rounded-lg font-mono text-xs text-blue-200 border border-blue-500/20 overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-blue-900">
+                           ${item.rxn}
+                        </div>
+
+                        <div class="absolute -bottom-4 -right-4 text-6xl opacity-5 group-hover:opacity-10 transition select-none pointer-events-none">🧪</div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        function handleSearch(e) {
+            searchQuery = e.target.value.toLowerCase();
+            render();
+        }
+
+        searchInput.addEventListener('input', handleSearch);
+        mobileSearchInput.addEventListener('input', handleSearch);
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // UI Toggle
+                btns.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white', 'active');
+                    b.classList.add('bg-slate-800', 'text-slate-300');
+                });
+                btn.classList.remove('bg-slate-800', 'text-slate-300');
+                btn.classList.add('bg-blue-600', 'text-white', 'active');
+
+                // Logic
+                currentFilter = btn.getAttribute('data-filter');
+                render();
+            });
+        });
+
+        // Initial Render
+        render();
+
+    </script>
+</body>
+</html>
