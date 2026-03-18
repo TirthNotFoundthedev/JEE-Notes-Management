@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry Conversions — MHT CET 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e28;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0;
+    --muted: #7a7f90;
+    --accent: #4f9cf9;
+    --green: #3ecf8e;
+    --amber: #f5a623;
+    --red: #f2617a;
+    --purple: #a78bfa;
+    --teal: #2dd4bf;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 48px 24px;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 24px;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(79,156,249,0.1);
+    border: 1px solid rgba(79,156,249,0.25);
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 8px;
+  }
+
+  .exam-warning {
+    background: rgba(242,97,122,0.08);
+    border: 1px solid rgba(242,97,122,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #f2617a;
+    max-width: 340px;
+    font-family: var(--mono);
+  }
+
+  .exam-warning strong { display: block; font-size: 11px; letter-spacing: 0.1em; margin-bottom: 4px; color: rgba(242,97,122,0.6); }
+
+  /* Grid layout */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  @media (max-width: 700px) {
+    .grid, .grid-2, .grid-4 { grid-template-columns: 1fr; }
+    h1 { font-size: 22px; }
+    .exam-warning { max-width: 100%; }
+  }
+
+  /* Section */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin: 32px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Card */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  .card-head {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-head-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .card-body {
+    padding: 4px 0;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6px 14px;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .row:last-child { border-bottom: none; }
+  .row:hover { background: var(--surface2); }
+
+  .from {
+    color: var(--muted);
+    font-size: 12.5px;
+    flex-shrink: 0;
+  }
+
+  .eq {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+    text-align: right;
+  }
+
+  /* Color themes */
+  .c-blue .dot  { background: var(--accent); }
+  .c-blue .card-head-title { color: var(--accent); }
+
+  .c-green .dot  { background: var(--green); }
+  .c-green .card-head-title { color: var(--green); }
+
+  .c-amber .dot  { background: var(--amber); }
+  .c-amber .card-head-title { color: var(--amber); }
+
+  .c-red .dot   { background: var(--red); }
+  .c-red .card-head-title { color: var(--red); }
+
+  .c-purple .dot { background: var(--purple); }
+  .c-purple .card-head-title { color: var(--purple); }
+
+  .c-teal .dot  { background: var(--teal); }
+  .c-teal .card-head-title { color: var(--teal); }
+
+  /* Alert card */
+  .alert-card {
+    background: rgba(245,166,35,0.06);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 32px;
+  }
+
+  .alert-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+
+  .alert-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(245,166,35,0.08);
+    font-size: 13px;
+  }
+
+  .alert-row:last-child { border-bottom: none; }
+
+  .alert-num {
+    font-family: var(--mono);
+    color: var(--amber);
+    font-size: 11px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .alert-text { color: #d4b57a; }
+  .alert-text strong { color: var(--text); font-weight: 500; }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* Trap card special */
+  .trap-card {
+    background: rgba(242,97,122,0.05);
+    border-color: rgba(242,97,122,0.15);
+  }
+  .trap-card .card-head { border-color: rgba(242,97,122,0.1); }
+  .trap-card .dot { background: var(--red); }
+  .trap-card .card-head-title { color: var(--red); }
+  .trap-card .eq { color: #f2617a; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="badge">MHT CET 2026 — CHEMISTRY</div>
+        <h1>Unit <span>Conversions</span><br>Reference Sheet</h1>
+        <p class="subtitle">All units + constants you need — verified against NCERT / IUPAC convention</p>
+      </div>
+      <div class="exam-warning">
+        <strong>⚠ REMEMBER</strong>
+        W = −P<sub>ext</sub>ΔV &nbsp;|&nbsp; IUPAC sign convention<br>
+        Compression → W is <strong>+ve</strong><br>
+        Expansion → W is <strong>−ve</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOLUME -->
+  <div class="section-label">Volume</div>
+  <div class="grid">
+
+    <div class="card c-blue">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Litre (L)</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 L</span><span class="eq">= 10⁻³ m³</span></div>
+        <div class="row"><span class="from">1 L</span><span class="eq">= 1 dm³</span></div>
+        <div class="row"><span class="from">1 L</span><span class="eq">= 1000 cm³</span></div>
+        <div class="row"><span class="from">1 L</span><span class="eq">= 1000 mL</span></div>
+      </div>
+    </div>
+
+    <div class="card c-blue">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">m³ / dm³ / cm³</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 dm³</span><span class="eq">= 10⁻³ m³</span></div>
+        <div class="row"><span class="from">1 cm³</span><span class="eq">= 1 mL</span></div>
+        <div class="row"><span class="from">1 m³</span><span class="eq">= 1000 L</span></div>
+        <div class="row"><span class="from">1 m³</span><span class="eq">= 10⁶ cm³</span></div>
+      </div>
+    </div>
+
+    <div class="card trap-card">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">⚠ Exam Trap</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 dm³</span><span class="eq">= 1 L ≠ 1 m³</span></div>
+        <div class="row"><span class="from">1 m³</span><span class="eq">= 10³ dm³</span></div>
+        <div class="row"><span class="from">5 m³ → dm³</span><span class="eq">× 10³ = 5000</span></div>
+        <div class="row"><span class="from">1 dm³ → cm³</span><span class="eq">× 10³ = 1000</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PRESSURE -->
+  <div class="section-label">Pressure</div>
+  <div class="grid">
+
+    <div class="card c-green">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">1 atm =</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">Pa</span><span class="eq">= 101325 Pa</span></div>
+        <div class="row"><span class="from">kPa</span><span class="eq">= 101.325 kPa</span></div>
+        <div class="row"><span class="from">bar</span><span class="eq">= 1.01325 bar</span></div>
+        <div class="row"><span class="from">torr / mmHg</span><span class="eq">= 760</span></div>
+      </div>
+    </div>
+
+    <div class="card c-green">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Pa / kPa / bar</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 bar</span><span class="eq">= 10⁵ Pa</span></div>
+        <div class="row"><span class="from">1 kPa</span><span class="eq">= 1000 Pa</span></div>
+        <div class="row"><span class="from">1 Pa</span><span class="eq">= 1 N/m²</span></div>
+        <div class="row"><span class="from">100 kPa</span><span class="eq">= 10⁵ Pa</span></div>
+      </div>
+    </div>
+
+    <div class="card c-green">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">STP / NTP</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">STP (new IUPAC)</span><span class="eq">273 K, 1 bar</span></div>
+        <div class="row"><span class="from">NTP</span><span class="eq">293 K, 1 atm</span></div>
+        <div class="row"><span class="from">Molar vol (STP)</span><span class="eq">22.7 L</span></div>
+        <div class="row"><span class="from">Molar vol (old)</span><span class="eq">22.4 L</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TEMPERATURE -->
+  <div class="section-label">Temperature</div>
+  <div class="grid grid-2">
+
+    <div class="card c-red">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">K ↔ °C</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">T (K)</span><span class="eq">= t°C + 273.15</span></div>
+        <div class="row"><span class="from">0°C</span><span class="eq">= 273 K</span></div>
+        <div class="row"><span class="from">25°C</span><span class="eq">= 298 K</span></div>
+        <div class="row"><span class="from">100°C</span><span class="eq">= 373 K</span></div>
+      </div>
+    </div>
+
+    <div class="card c-red">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Standard conditions</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">Standard T</span><span class="eq">298 K = 25°C</span></div>
+        <div class="row"><span class="from">Absolute zero</span><span class="eq">0 K = −273°C</span></div>
+        <div class="row"><span class="from">Room temp (approx)</span><span class="eq">300 K</span></div>
+        <div class="row"><span class="from">Body temp</span><span class="eq">310 K = 37°C</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ENERGY -->
+  <div class="section-label">Energy</div>
+  <div class="grid">
+
+    <div class="card c-amber">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Joule conversions</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 kJ</span><span class="eq">= 1000 J</span></div>
+        <div class="row"><span class="from">1 J</span><span class="eq">= 1 Pa·m³</span></div>
+        <div class="row"><span class="from">1 J</span><span class="eq">= 1 N·m</span></div>
+        <div class="row"><span class="from">1 cal</span><span class="eq">= 4.184 J</span></div>
+      </div>
+    </div>
+
+    <div class="card c-amber">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Cal / eV / L·atm</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 kcal</span><span class="eq">= 4184 J = 4.184 kJ</span></div>
+        <div class="row"><span class="from">1 eV</span><span class="eq">= 1.6 × 10⁻¹⁹ J</span></div>
+        <div class="row"><span class="from">1 L·atm</span><span class="eq">= 101.325 J</span></div>
+        <div class="row"><span class="from">1 L·bar</span><span class="eq">= 100 J</span></div>
+      </div>
+    </div>
+
+    <div class="card c-amber">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Gas constant R</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">R (SI)</span><span class="eq">8.314 J/mol·K</span></div>
+        <div class="row"><span class="from">R (cal)</span><span class="eq">≈ 2 cal/mol·K</span></div>
+        <div class="row"><span class="from">R (L·atm)</span><span class="eq">0.0821 L·atm/mol·K</span></div>
+        <div class="row"><span class="from">R (L·bar)</span><span class="eq">0.0831 L·bar/mol·K</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MASS / AMOUNT -->
+  <div class="section-label">Mass &amp; Amount</div>
+  <div class="grid">
+
+    <div class="card c-purple">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Mass units</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 kg</span><span class="eq">= 1000 g</span></div>
+        <div class="row"><span class="from">1 g</span><span class="eq">= 1000 mg</span></div>
+        <div class="row"><span class="from">1 amu</span><span class="eq">= 1.66 × 10⁻²⁷ kg</span></div>
+        <div class="row"><span class="from">1 amu</span><span class="eq">= 1 g/mol</span></div>
+      </div>
+    </div>
+
+    <div class="card c-purple">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Mole</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 mol</span><span class="eq">= 6.022 × 10²³</span></div>
+        <div class="row"><span class="from">Nₐ</span><span class="eq">= 6.022 × 10²³ /mol</span></div>
+        <div class="row"><span class="from">1 mol gas (STP)</span><span class="eq">= 22.7 L</span></div>
+        <div class="row"><span class="from">1 mol e⁻</span><span class="eq">= 1 Faraday</span></div>
+      </div>
+    </div>
+
+    <div class="card c-purple">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Faraday / Charge</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 F</span><span class="eq">= 96500 C/mol</span></div>
+        <div class="row"><span class="from">1 C</span><span class="eq">= 1 A·s</span></div>
+        <div class="row"><span class="from">charge of e⁻</span><span class="eq">= 1.6 × 10⁻¹⁹ C</span></div>
+        <div class="row"><span class="from">m (Faraday law)</span><span class="eq">= ZIt (grams)</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONCENTRATION -->
+  <div class="section-label">Concentration</div>
+  <div class="grid grid-2">
+
+    <div class="card c-teal">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Parts per / %</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 ppm</span><span class="eq">= 1 mg/L ≈ 1 mg/kg</span></div>
+        <div class="row"><span class="from">1 ppm</span><span class="eq">= 10⁻⁶ g/g</span></div>
+        <div class="row"><span class="from">1 ppb</span><span class="eq">= 10⁻⁹ g/g</span></div>
+        <div class="row"><span class="from">% w/v</span><span class="eq">= g per 100 mL</span></div>
+      </div>
+    </div>
+
+    <div class="card c-teal">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Molarity / Normality</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">Molarity (M)</span><span class="eq">mol / L (dm³)</span></div>
+        <div class="row"><span class="from">Molality (m)</span><span class="eq">mol / kg solvent</span></div>
+        <div class="row"><span class="from">Normality</span><span class="eq">= M × n-factor</span></div>
+        <div class="row"><span class="from">Mole fraction</span><span class="eq">nₐ / (nₐ + n_b)</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LENGTH / MISC -->
+  <div class="section-label">Length &amp; Electrochemistry</div>
+  <div class="grid grid-2">
+
+    <div class="card c-blue">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Length (atomic scale)</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">1 nm</span><span class="eq">= 10⁻⁹ m</span></div>
+        <div class="row"><span class="from">1 Å (angstrom)</span><span class="eq">= 10⁻¹⁰ m</span></div>
+        <div class="row"><span class="from">1 pm</span><span class="eq">= 10⁻¹² m</span></div>
+        <div class="row"><span class="from">1 Å</span><span class="eq">= 100 pm</span></div>
+      </div>
+    </div>
+
+    <div class="card c-green">
+      <div class="card-head"><div class="dot"></div><div class="card-head-title">Electrochemistry</div></div>
+      <div class="card-body">
+        <div class="row"><span class="from">ΔG = −nFE°</span><span class="eq">spontaneous if −ve</span></div>
+        <div class="row"><span class="from">1 V</span><span class="eq">= 1 J/C</span></div>
+        <div class="row"><span class="from">1 W</span><span class="eq">= 1 J/s</span></div>
+        <div class="row"><span class="from">W = −PΔV</span><span class="eq">IUPAC (NCERT)</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ALERT BLOCK -->
+  <div class="alert-card">
+    <div class="alert-title">▲ TOP EXAM TRAPS — MEMORISE THESE</div>
+    <div class="alert-row">
+      <span class="alert-num">01</span>
+      <span class="alert-text"><strong>m³ vs dm³ vs cm³</strong> — always convert to the same unit before substituting. 1 dm³ = 1 L = 10⁻³ m³. This trap appeared in 2020 &amp; 2014 papers.</span>
+    </div>
+    <div class="alert-row">
+      <span class="alert-num">02</span>
+      <span class="alert-text"><strong>kPa vs Pa in W = −PΔV</strong> — convert P to Pa and V to m³ to get Joules, then ÷ 1000 for kJ. Don't mix units mid-calculation.</span>
+    </div>
+    <div class="alert-row">
+      <span class="alert-num">03</span>
+      <span class="alert-text"><strong>STP molar volume</strong> — 22.7 L (at 1 bar, new IUPAC) vs 22.4 L (at 1 atm, old). Check which standard the question uses.</span>
+    </div>
+    <div class="alert-row">
+      <span class="alert-num">04</span>
+      <span class="alert-text"><strong>R value</strong> — use 8.314 J/mol·K for thermodynamics, 0.0821 L·atm/mol·K for gas laws. Never mix them.</span>
+    </div>
+    <div class="alert-row">
+      <span class="alert-num">05</span>
+      <span class="alert-text"><strong>1 L·atm = 101.325 J</strong> — not 100 J. That's 1 L·bar = 100 J. Easy to mix up in electrochemistry.</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span class="footer-text">MHT CET 2026 — Chemistry Reference</span>
+    <span class="footer-text">NCERT / IUPAC Convention</span>
+  </div>
+
+</div>
+</body>
+</html>
