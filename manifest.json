@@ -51,6 +51,12 @@
         "name": "WebNotes.html",
         "type": "WebNotes"
       }
+    ],
+    "General": [
+      {
+        "name": "All Important Conversions.html",
+        "type": "All Important Conversions"
+      }
     ]
   },
   "Physics": {
